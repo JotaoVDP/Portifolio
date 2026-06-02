@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfólio · Data Engineer</title>
+  <meta name="description" content="Data Engineer — plataformas de dados, analytics e IA industrial." />
+
+  <!-- Fonts (load on the live site; degrade gracefully offline) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Saira:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <!-- atmospheric background -->
+  <div class="bg-layer"></div>
+  <div class="bg-grid"></div>
+
+  <!-- ============ HEADER ============ -->
+  <header>
+    <div class="wrap">
+      <nav class="nav">
+        <a class="brand" href="#top" aria-label="Home">
+          <svg class="logo" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <polygon points="16,3 28,9.5 28,22.5 16,29 4,22.5 4,9.5" fill="none" stroke="var(--accent)" stroke-width="1.6"/>
+            <polygon points="16,10 22,13.2 22,19.5 16,22.8 10,19.5 10,13.2" fill="var(--accent)" opacity="0.18"/>
+            <circle cx="16" cy="16" r="2.6" fill="var(--accent)"/>
+          </svg>
+          <!-- PLACEHOLDER: replace with your name -->
+          <span class="bname" id="brandName">Seu Nome</span>
+        </a>
+
+        <div class="nav-links" id="navLinks">
+          <a href="#about" data-i18n="navAbout">Sobre</a>
+          <a href="#projects" data-i18n="navProjects">Projetos</a>
+          <a href="#contact" data-i18n="navContact">Contato</a>
+        </div>
+
+        <div class="nav-tools">
+          <div class="langs">
+            <button class="flag-btn" data-lang="pt" type="button" aria-label="Português">
+              <svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect width="22" height="22" fill="#1b9e4b"/>
+                <polygon points="11,3 19,11 11,19 3,11" fill="#ffdf00"/>
+                <circle cx="11" cy="11" r="4.3" fill="#002776"/>
+              </svg>
+            </button>
+            <button class="flag-btn" data-lang="en" type="button" aria-label="English">
+              <svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect width="22" height="22" fill="#012169"/>
+                <path d="M0 0 L22 22 M22 0 L0 22" stroke="#fff" stroke-width="4"/>
+                <path d="M0 0 L22 22 M22 0 L0 22" stroke="#c8102e" stroke-width="1.7"/>
+                <rect x="8" y="0" width="6" height="22" fill="#fff"/>
+                <rect x="0" y="8" width="22" height="6" fill="#fff"/>
+                <rect x="9.2" y="0" width="3.6" height="22" fill="#c8102e"/>
+                <rect x="0" y="9.2" width="22" height="3.6" fill="#c8102e"/>
+              </svg>
+            </button>
+            <button class="flag-btn" data-lang="es" type="button" aria-label="Español">
+              <svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect width="22" height="22" fill="#aa151b"/>
+                <rect y="5.5" width="22" height="11" fill="#f1bf00"/>
+              </svg>
+            </button>
+            <button class="flag-btn" data-lang="fi" type="button" aria-label="Suomi">
+              <svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect width="22" height="22" fill="#fff"/>
+                <rect x="6.4" y="0" width="3.4" height="22" fill="#003580"/>
+                <rect x="0" y="9.3" width="22" height="3.4" fill="#003580"/>
+              </svg>
+            </button>
+          </div>
+
+          <button class="icon-btn" id="themeBtn" type="button" data-i18n-aria="themeToggle" aria-label="Alternar tema">
+            <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4.2"/>
+              <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"/>
+            </svg>
+            <svg class="moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 7 7 0 1 0 20 14.5z"/>
+            </svg>
+          </button>
+
+          <button class="menu-btn icon-btn" id="menuBtn" type="button" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M3 6h18M3 12h18M3 18h18"/>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div class="hero-copy reveal">
+        <span class="status-pill"><span class="dot"></span><span data-i18n="heroStatus">Disponível para oportunidades</span></span>
+        <!-- PLACEHOLDER: replace with your name -->
+        <h1>Seu <span class="accent">Nome</span></h1>
+        <span class="role" data-i18n="heroRole">Data Engineer</span>
+        <p class="tagline" data-i18n="heroTagline">Construo plataformas de dados confiáveis e transformo dados industriais em decisões.</p>
+        <p class="intro" data-i18n="heroIntro">Engenheiro de Dados especializado em Databricks, ETL em larga escala e analytics para o setor industrial.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#projects" data-i18n="heroCtaProjects">Ver projetos</a>
+          <a class="btn btn-ghost" href="#contact" data-i18n="heroCtaContact">Entrar em contato</a>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal d2">
+        <div class="hero-card">
+          <div class="hc-head"><span class="hc-dot" style="background:var(--ok)"></span><span>data_platform · online</span></div>
+          <svg viewBox="0 0 300 92" width="100%" style="height:auto;display:block" xmlns="http://www.w3.org/2000/svg" font-family="var(--font-mono)">
+            <defs>
+              <marker id="ah-hero" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="var(--border-2)"/>
+              </marker>
+            </defs>
+            <!-- bronze -->
+            <rect x="6"   y="22" width="84" height="48" rx="9" class="cx-surface2"/>
+            <rect x="6"   y="22" width="84" height="4"  rx="2" fill="var(--bronze)"/>
+            <text x="48"  y="46" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">BRONZE</text>
+            <text x="48"  y="60" text-anchor="middle" class="cx-text">raw ingest</text>
+            <!-- silver -->
+            <rect x="108" y="22" width="84" height="48" rx="9" class="cx-surface2"/>
+            <rect x="108" y="22" width="84" height="4"  rx="2" fill="var(--silver)"/>
+            <text x="150" y="46" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">SILVER</text>
+            <text x="150" y="60" text-anchor="middle" class="cx-text">conformed</text>
+            <!-- gold -->
+            <rect x="210" y="22" width="84" height="48" rx="9" class="cx-surface2"/>
+            <rect x="210" y="22" width="84" height="4"  rx="2" fill="var(--gold)"/>
+            <text x="252" y="46" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">GOLD</text>
+            <text x="252" y="60" text-anchor="middle" class="cx-text">curated</text>
+            <!-- arrows -->
+            <line x1="92"  y1="46" x2="106" y2="46" stroke="var(--border-2)" stroke-width="1.4" marker-end="url(#ah-hero)"/>
+            <line x1="194" y1="46" x2="208" y2="46" stroke="var(--border-2)" stroke-width="1.4" marker-end="url(#ah-hero)"/>
+            <text x="6" y="14" class="cx-text-d">medallion architecture</text>
+          </svg>
+          <div class="hero-stats">
+            <div class="stat"><div class="num">05</div><div class="lbl" data-i18n="heroStat1Label">Projetos de destaque</div></div>
+            <div class="stat"><div class="num">3</div><div class="lbl" data-i18n="heroStat2Label">Regiões cobertas</div></div>
+            <div class="stat"><div class="num" style="font-size:17px;line-height:1.2">ISO 25012</div><div class="lbl" data-i18n="heroStat3Label">Padrão de qualidade</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about">
+    <div class="wrap about-grid">
+      <div class="about-text reveal">
+        <div class="kicker" data-i18n="aboutKicker">Perfil</div>
+        <h2 class="section-title" data-i18n="aboutTitle">Sobre mim</h2>
+        <p data-i18n="aboutP1"></p>
+        <p data-i18n="aboutP2"></p>
+      </div>
+      <div class="stack-card reveal d1">
+        <h4 data-i18n="aboutStackTitle">Stack principal</h4>
+        <div class="chips">
+          <span class="chip lead">Databricks</span>
+          <span class="chip lead">PySpark</span>
+          <span class="chip lead">Python</span>
+          <span class="chip lead">SQL</span>
+          <span class="chip">AWS</span>
+          <span class="chip">Six Sigma</span>
+          <span class="chip">ETL / ELT</span>
+          <span class="chip">Data Modeling</span>
+          <span class="chip">Machine Learning</span>
+          <span class="chip">Computer Vision</span>
+          <span class="chip">Data Observability</span>
+          <span class="chip">Delta Lake</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="kicker" data-i18n="projKicker">Trabalhos selecionados</div>
+        <h2 class="section-title" data-i18n="projTitle">Projetos</h2>
+        <p class="section-sub" data-i18n="projSubtitle"></p>
+        <p class="section-sub" style="margin-top:12px;font-family:var(--font-mono);font-size:12.5px;color:var(--text-faint);letter-spacing:.02em" data-i18n="illustrativeNote"></p>
+      </div>
+
+      <div class="proj" style="gap:24px;margin-top:36px">
+
+        <!-- ---- Project 1 ---- -->
+        <article class="proj-card reveal">
+          <div class="proj-head">
+            <div class="proj-index">01</div>
+            <div>
+              <div class="proj-tag" data-i18n="p1Tag"></div>
+              <h3 class="proj-title" data-i18n="p1Title"></h3>
+              <div class="proj-role" data-i18n="p1Role"></div>
+            </div>
+          </div>
+          <div class="proj-body">
+            <p class="proj-desc" data-i18n="p1Desc"></p>
+            <ul class="proj-bullets">
+              <li data-i18n="p1b1"></li>
+              <li data-i18n="p1b2"></li>
+              <li data-i18n="p1b3"></li>
+            </ul>
+            <div class="viz-grid">
+              <figure class="viz">
+                <svg viewBox="0 0 480 188" width="100%" style="height:auto;display:block" xmlns="http://www.w3.org/2000/svg" font-family="var(--font-mono)">
+                  <defs>
+                    <marker id="ah1" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+                      <path d="M0 0 L10 5 L0 10 z" fill="var(--border-2)"/>
+                    </marker>
+                  </defs>
+                  <text x="8" y="16" class="cx-text-d">plant signals</text>
+                  <line x1="8" y1="92" x2="48" y2="92" stroke="var(--border-2)" stroke-width="1.4" marker-end="url(#ah1)"/>
+                  <!-- bronze -->
+                  <rect x="52"  y="58" width="116" height="70" rx="11" class="cx-surface2"/>
+                  <rect x="52"  y="58" width="116" height="5" rx="2.5" fill="var(--bronze)"/>
+                  <text x="110" y="90"  text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">BRONZE</text>
+                  <text x="110" y="108" text-anchor="middle" class="cx-text">raw ingest</text>
+                  <line x1="170" y1="92" x2="186" y2="92" stroke="var(--border-2)" stroke-width="1.4" marker-end="url(#ah1)"/>
+                  <!-- silver -->
+                  <rect x="188" y="58" width="116" height="70" rx="11" class="cx-surface2"/>
+                  <rect x="188" y="58" width="116" height="5" rx="2.5" fill="var(--silver)"/>
+                  <text x="246" y="90"  text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">SILVER</text>
+                  <text x="246" y="108" text-anchor="middle" class="cx-text">cleaned · conformed</text>
+                  <line x1="306" y1="92" x2="322" y2="92" stroke="var(--border-2)" stroke-width="1.4" marker-end="url(#ah1)"/>
+                  <!-- gold -->
+                  <rect x="324" y="58" width="116" height="70" rx="11" class="cx-surface2"/>
+                  <rect x="324" y="58" width="116" height="5" rx="2.5" fill="var(--gold)"/>
+                  <text x="382" y="90"  text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">GOLD</text>
+                  <text x="382" y="108" text-anchor="middle" class="cx-text">curated · data marts</text>
+                  <text x="472" y="150" text-anchor="end" class="cx-text-d">→ analytics</text>
+                </svg>
+                <figcaption data-i18n="p1Cap1"></figcaption>
+              </figure>
+              <figure class="viz">
+                <div class="chart" id="chart-ingestion"></div>
+                <figcaption data-i18n="p1Cap2"></figcaption>
+              </figure>
+            </div>
+            <div class="viz-grid one" style="margin-top:18px">
+              <figure class="viz">
+                <table class="mock-table">
+                  <thead>
+                    <tr><th>Layer</th><th>Content</th><th>Format</th><th>Refresh</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><span class="tag-pill tp-bronze">Bronze</span></td><td>Raw plant feeds</td><td>Delta</td><td>Streaming</td></tr>
+                    <tr><td><span class="tag-pill tp-silver">Silver</span></td><td>Cleaned · conformed</td><td>Delta</td><td>Hourly</td></tr>
+                    <tr><td><span class="tag-pill tp-gold">Gold</span></td><td>Dimensional marts</td><td>Delta</td><td>Daily</td></tr>
+                  </tbody>
+                </table>
+              </figure>
+            </div>
+          </div>
+        </article>
+
+        <!-- ---- Project 2 ---- -->
+        <article class="proj-card reveal">
+          <div class="proj-head">
+            <div class="proj-index">02</div>
+            <div>
+              <div class="proj-tag" data-i18n="p2Tag"></div>
+              <h3 class="proj-title" data-i18n="p2Title"></h3>
+              <div class="proj-role" data-i18n="p2Role"></div>
+            </div>
+          </div>
+          <div class="proj-body">
+            <p class="proj-desc" data-i18n="p2Desc"></p>
+            <div class="highlight">
+              <div class="h-badge">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.6L21 9.3l-5 4.4 1.6 6.6L12 16.9 6.4 20.3 8 13.7l-5-4.4 6.4-.7z"/></svg>
+                <span data-i18n="highlightBadge">Destaque</span>
+              </div>
+              <h4 data-i18n="p2HighlightTitle"></h4>
+              <p data-i18n="p2Highlight"></p>
+            </div>
+            <div class="viz-grid">
+              <figure class="viz">
+                <div class="kpi-row">
+                  <div class="kpi-mini"><div class="k-lbl">OEE</div><div class="k-val">87.4%</div><div class="k-trend up">▲ 3.1 pts</div></div>
+                  <div class="kpi-mini"><div class="k-lbl">Yield</div><div class="k-val">94.2%</div><div class="k-trend up">▲ 1.8 pts</div></div>
+                  <div class="kpi-mini"><div class="k-lbl">Scrap rate</div><div class="k-val">2.6%</div><div class="k-trend down">▼ 0.9 pts</div></div>
+                  <div class="kpi-mini"><div class="k-lbl">Energy / t</div><div class="k-val">0.83</div><div class="k-trend down">▼ 4.2%</div></div>
+                </div>
+                <div class="chart" id="chart-kpitrend" style="margin-top:14px"></div>
+                <figcaption data-i18n="p2Cap1"></figcaption>
+              </figure>
+              <figure class="viz">
+                <div class="chart" id="chart-iso"></div>
+                <figcaption data-i18n="p2Cap2"></figcaption>
+              </figure>
+            </div>
+          </div>
+        </article>
+
+        <!-- ---- Project 3 ---- -->
+        <article class="proj-card reveal">
+          <div class="proj-head">
+            <div class="proj-index">03</div>
+            <div>
+              <div class="proj-tag" data-i18n="p3Tag"></div>
+              <h3 class="proj-title" data-i18n="p3Title"></h3>
+              <div class="proj-role" data-i18n="p3Role"></div>
+            </div>
+          </div>
+          <div class="proj-body">
+            <p class="proj-desc" data-i18n="p3Desc"></p>
+            <ul class="proj-bullets">
+              <li data-i18n="p3b1"></li>
+              <li data-i18n="p3b2"></li>
+              <li data-i18n="p3b3"></li>
+            </ul>
+            <div class="viz-grid">
+              <figure class="viz">
+                <div class="chart" id="chart-blend"></div>
+                <table class="mock-table" style="margin-top:14px">
+                  <thead>
+                    <tr><th>Scenario</th><th>Quality</th><th>Rel. cost</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Baseline mix</td><td>98.1%</td><td>1.00</td></tr>
+                    <tr><td>Optimized mix</td><td><span class="tag-pill tp-ok">99.2%</span></td><td>0.91</td></tr>
+                  </tbody>
+                </table>
+                <figcaption data-i18n="p3Cap1"></figcaption>
+              </figure>
+              <figure class="viz">
+                <div class="chart" id="chart-frontier"></div>
+                <figcaption data-i18n="p3Cap2"></figcaption>
+              </figure>
+            </div>
+          </div>
+        </article>
+
+        <!-- ---- Project 4 ---- -->
+        <article class="proj-card reveal">
+          <div class="proj-head">
+            <div class="proj-index">04</div>
+            <div>
+              <div class="proj-tag" data-i18n="p4Tag"></div>
+              <h3 class="proj-title" data-i18n="p4Title"></h3>
+              <div class="proj-role" data-i18n="p4Role"></div>
+            </div>
+          </div>
+          <div class="proj-body">
+            <p class="proj-desc" data-i18n="p4Desc"></p>
+            <div class="highlight">
+              <div class="h-badge">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.6L21 9.3l-5 4.4 1.6 6.6L12 16.9 6.4 20.3 8 13.7l-5-4.4 6.4-.7z"/></svg>
+                <span data-i18n="highlightBadge">Destaque</span>
+              </div>
+              <h4 data-i18n="p4HighlightTitle"></h4>
+              <p data-i18n="p4Highlight"></p>
+            </div>
+            <div class="viz-grid">
+              <figure class="viz">
+                <svg viewBox="0 0 360 232" width="100%" style="height:auto;display:block" xmlns="http://www.w3.org/2000/svg" font-family="var(--font-mono)">
+                  <rect x="6" y="6" width="348" height="206" rx="10" class="cx-surface2"/>
+                  <!-- frame corner ticks -->
+                  <path d="M18 6 v-0 M6 18 h12 M6 6 h12 M6 6 v12" fill="none" stroke="var(--accent)" stroke-width="2"/>
+                  <path d="M342 6 h12 M354 6 v12" fill="none" stroke="var(--accent)" stroke-width="2"/>
+                  <path d="M6 200 v12 M6 212 h12" fill="none" stroke="var(--accent)" stroke-width="2"/>
+                  <path d="M354 200 v12 M342 212 h12" fill="none" stroke="var(--accent)" stroke-width="2"/>
+                  <!-- detection boxes -->
+                  <rect x="44"  y="40"  width="120" height="78" rx="3" fill="none" stroke="var(--accent)" stroke-width="2"/>
+                  <rect x="44"  y="30"  width="64"  height="14" rx="2" fill="var(--accent)"/>
+                  <text x="50"  y="41"  fill="#0a0c11" font-size="10" font-weight="700">Class A · 0.98</text>
+                  <rect x="196" y="58"  width="120" height="96" rx="3" fill="none" stroke="var(--accent-2)" stroke-width="2"/>
+                  <rect x="196" y="48"  width="64"  height="14" rx="2" fill="var(--accent-2)"/>
+                  <text x="202" y="59"  fill="#0a0c11" font-size="10" font-weight="700">Class B · 0.95</text>
+                  <rect x="92"  y="140" width="96"  height="60" rx="3" fill="none" stroke="var(--gold)" stroke-width="2"/>
+                  <rect x="92"  y="130" width="64"  height="14" rx="2" fill="var(--gold)"/>
+                  <text x="98"  y="141" fill="#0a0c11" font-size="10" font-weight="700">Class C · 0.92</text>
+                  <text x="14" y="24" class="cx-text-d">cv_inference · live feed</text>
+                </svg>
+                <figcaption data-i18n="p4Cap1"></figcaption>
+              </figure>
+              <figure class="viz">
+                <div class="chart" id="chart-scrap"></div>
+                <figcaption data-i18n="p4Cap2"></figcaption>
+              </figure>
+            </div>
+          </div>
+        </article>
+
+        <!-- ---- Project 5 ---- -->
+        <article class="proj-card reveal">
+          <div class="proj-head">
+            <div class="proj-index">05</div>
+            <div>
+              <div class="proj-tag" data-i18n="p5Tag"></div>
+              <h3 class="proj-title" data-i18n="p5Title"></h3>
+              <div class="proj-role" data-i18n="p5Role"></div>
+            </div>
+          </div>
+          <div class="proj-body">
+            <p class="proj-desc" data-i18n="p5Desc"></p>
+            <div class="highlight">
+              <div class="h-badge">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.6L21 9.3l-5 4.4 1.6 6.6L12 16.9 6.4 20.3 8 13.7l-5-4.4 6.4-.7z"/></svg>
+                <span data-i18n="highlightBadge">Destaque</span>
+              </div>
+              <h4 data-i18n="p5HighlightTitle"></h4>
+              <p data-i18n="p5Highlight"></p>
+            </div>
+            <div class="viz-grid">
+              <figure class="viz">
+                <svg viewBox="0 0 480 240" width="100%" style="height:auto;display:block" xmlns="http://www.w3.org/2000/svg" font-family="var(--font-mono)">
+                  <defs>
+                    <marker id="ah5" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+                      <path d="M0 0 L10 5 L0 10 z" fill="var(--border-2)"/>
+                    </marker>
+                  </defs>
+                  <!-- physical -->
+                  <rect x="14" y="96" width="104" height="48" rx="10" class="cx-surface2"/>
+                  <rect x="14" y="96" width="104" height="4" rx="2" fill="var(--accent-2)"/>
+                  <text x="66" y="118" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Plant</text>
+                  <text x="66" y="132" text-anchor="middle" class="cx-text">sensors · MES</text>
+                  <!-- data layer -->
+                  <rect x="150" y="96" width="104" height="48" rx="10" class="cx-surface2"/>
+                  <rect x="150" y="96" width="104" height="4" rx="2" fill="var(--gold)"/>
+                  <text x="202" y="118" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Data Layer</text>
+                  <text x="202" y="132" text-anchor="middle" class="cx-text">Gold marts</text>
+                  <!-- models -->
+                  <rect x="286" y="54" width="116" height="42" rx="10" class="cx-surface2"/>
+                  <text x="344" y="74" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Regression</text>
+                  <text x="344" y="88" text-anchor="middle" class="cx-text">predictive</text>
+                  <rect x="286" y="106" width="116" height="42" rx="10" class="cx-surface2"/>
+                  <text x="344" y="126" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Classification</text>
+                  <text x="344" y="140" text-anchor="middle" class="cx-text">state · quality</text>
+                  <!-- agent -->
+                  <rect x="150" y="176" width="104" height="48" rx="10" class="cx-surface2"/>
+                  <rect x="150" y="176" width="104" height="4" rx="2" fill="var(--accent)"/>
+                  <text x="202" y="198" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">AI agent</text>
+                  <text x="202" y="212" text-anchor="middle" class="cx-text">recommends</text>
+                  <!-- app -->
+                  <rect x="14" y="176" width="104" height="48" rx="10" class="cx-surface2"/>
+                  <text x="66" y="198" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Web app</text>
+                  <text x="66" y="212" text-anchor="middle" class="cx-text">front + back</text>
+                  <!-- arrows -->
+                  <line x1="118" y1="120" x2="148" y2="120" stroke="var(--border-2)" stroke-width="1.4" marker-end="url(#ah5)"/>
+                  <line x1="254" y1="112" x2="284" y2="80"  stroke="var(--border-2)" stroke-width="1.4" marker-end="url(#ah5)"/>
+                  <line x1="254" y1="124" x2="284" y2="128" stroke="var(--border-2)" stroke-width="1.4" marker-end="url(#ah5)"/>
+                  <line x1="344" y1="148" x2="240" y2="176" stroke="var(--border-2)" stroke-width="1.4" marker-end="url(#ah5)"/>
+                  <line x1="150" y1="200" x2="120" y2="200" stroke="var(--border-2)" stroke-width="1.4" marker-end="url(#ah5)"/>
+                  <text x="14" y="28" class="cx-text-d">digital twin · system map</text>
+                </svg>
+                <figcaption data-i18n="p5Cap1"></figcaption>
+              </figure>
+              <figure class="viz">
+                <div class="chart" id="chart-pred"></div>
+                <figcaption data-i18n="p5Cap2"></figcaption>
+              </figure>
+            </div>
+            <div class="viz-grid one" style="margin-top:18px">
+              <figure class="viz">
+                <svg viewBox="0 0 480 176" width="100%" style="height:auto;display:block" xmlns="http://www.w3.org/2000/svg" font-family="var(--font-mono)">
+                  <text x="8" y="16" class="cx-text-d">ai-agent observability · 3 layers</text>
+                  <!-- layer 1 -->
+                  <rect x="8"  y="26"  width="464" height="38" rx="9" class="cx-surface2"/>
+                  <rect x="8"  y="26"  width="5" height="38" rx="2.5" fill="var(--accent)"/>
+                  <text x="26" y="44" fill="var(--text)" font-size="13" font-weight="600">L1 · Agent traces &amp; reasoning steps</text>
+                  <text x="26" y="58" class="cx-text">decision path · latency · token cost</text>
+                  <!-- layer 2 -->
+                  <rect x="8"  y="70"  width="464" height="38" rx="9" class="cx-surface2"/>
+                  <rect x="8"  y="70"  width="5" height="38" rx="2.5" fill="var(--accent-2)"/>
+                  <text x="26" y="88" fill="var(--text)" font-size="13" font-weight="600">L2 · Tool calls &amp; data quality</text>
+                  <text x="26" y="102" class="cx-text">inputs validated · ISO/IEC 25012 metrics</text>
+                  <!-- layer 3 -->
+                  <rect x="8"  y="114" width="464" height="38" rx="9" class="cx-surface2"/>
+                  <rect x="8"  y="114" width="5" height="38" rx="2.5" fill="var(--gold)"/>
+                  <text x="26" y="132" fill="var(--text)" font-size="13" font-weight="600">L3 · Outcomes &amp; business impact</text>
+                  <text x="26" y="146" class="cx-text">drift · recommendation acceptance · KPIs</text>
+                </svg>
+                <figcaption data-i18n="p5Cap3"></figcaption>
+              </figure>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-card reveal">
+        <div class="kicker" style="justify-content:center" data-i18n="contactKicker">Contato</div>
+        <h2 data-i18n="contactTitle">Vamos conversar</h2>
+        <p data-i18n="contactText"></p>
+        <!-- PLACEHOLDER: replace e-mail in both the href and the visible text -->
+        <a class="email-link" id="contactEmail" href="mailto:seu.email@exemplo.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="2.5"/>
+            <path d="M3.5 6.5l8.5 6 8.5-6"/>
+          </svg>
+          seu.email@exemplo.com
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="wrap foot">
+      <span class="ftxt" data-i18n="footerText"></span>
+      <a class="totop" href="#top" data-i18n="backToTop">Voltar ao topo</a>
+    </div>
+  </footer>
+
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/charts.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
