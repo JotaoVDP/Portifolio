@@ -32,7 +32,7 @@
       document.title = (who ? who + ' · ' : '') + dict.docTitle;
     }
     document.querySelectorAll('.flag-btn').forEach(b =>
-      b.classList.toggle('active', b.dataset.lang === l));
+        b.classList.toggle('active', b.dataset.lang === l));
     lang = l; store.set('lang', l);
   }
 
