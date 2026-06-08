@@ -8,7 +8,7 @@
   };
 
   /* ---------- i18n ---------- */
-  const SUPPORTED = ['pt', 'en', 'es', 'fi'];
+  const SUPPORTED = ['pt', 'en', 'es', 'fi', 'it', 'fr'];
   let lang = store.get('lang', '');
   if (!SUPPORTED.includes(lang)) {
     const nav = (navigator.language || 'pt').slice(0, 2).toLowerCase();
