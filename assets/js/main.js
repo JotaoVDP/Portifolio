@@ -82,5 +82,16 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    /* re-tune charts when crossing the mobile breakpoint (resize / rotation) */
+    let wasMobile = window.innerWidth <= 560;
+    let rt;
+    window.addEventListener('resize', () => {
+      clearTimeout(rt);
+      rt = setTimeout(() => {
+        const isMobile = window.innerWidth <= 560;
+        if (isMobile !== wasMobile) { wasMobile = isMobile; if (window.Charts) window.Charts.renderAll(); }
+      }, 220);
+    }, { passive: true });
   });
 })();

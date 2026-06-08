@@ -25,6 +25,7 @@
   }
 
   let instances = [];
+  let mob = false;
   function add(id, cfg) {
     const el = document.getElementById(id);
     if (!el || typeof Chart === 'undefined') return;
@@ -39,15 +40,15 @@
       plugins: {
         legend: {
           labels: {
-            color: p.label, usePointStyle: true, boxWidth: 8, boxHeight: 8, padding: 14,
-            font: { family: MONO, size: 11 }
+            color: p.label, usePointStyle: true, boxWidth: mob ? 7 : 9, boxHeight: mob ? 7 : 9, padding: mob ? 9 : 16,
+            font: { family: MONO, size: mob ? 10.5 : 12.5 }
           }
         },
         tooltip: {
           backgroundColor: rgba(p.surface, 0.97), titleColor: p.text, bodyColor: p.label,
-          borderColor: p.axis, borderWidth: 1, padding: 10, cornerRadius: 8,
-          titleFont: { family: MONO, size: 12 }, bodyFont: { family: MONO, size: 12 },
-          footerFont: { family: MONO, size: 11 }, footerColor: p.tick
+          borderColor: p.axis, borderWidth: 1, padding: 12, cornerRadius: 8,
+          titleFont: { family: MONO, size: 13 }, bodyFont: { family: MONO, size: 13 },
+          footerFont: { family: MONO, size: 12 }, footerColor: p.tick
         }
       }
     }, extra || {});
@@ -56,8 +57,8 @@
     return Object.assign({
       grid: { color: p.grid, drawTicks: false },
       border: { color: p.axis, display: true },
-      ticks: { color: p.tick, font: { family: MONO, size: 10.5 }, padding: 6 },
-      title: title ? { display: true, text: title, color: p.label, font: { family: MONO, size: 11 } } : undefined
+      ticks: { color: p.tick, font: { family: MONO, size: mob ? 10 : 12 }, padding: 5, autoSkip: true, maxRotation: 0, autoSkipPadding: 10, maxTicksLimit: mob ? 7 : 13 },
+      title: title ? { display: !mob, text: title, color: p.label, font: { family: MONO, size: 11 } } : undefined
     }, opts || {});
   }
 
@@ -69,8 +70,8 @@
       data: {
         labels: months,
         datasets: [
-          { label: 'South America', data: [120, 135, 128, 150, 162, 158, 175, 182], backgroundColor: rgba(p.accent, 0.9), borderRadius: 3, stack: 's' },
-          { label: 'North America', data: [80, 86, 90, 98, 104, 101, 110, 118], backgroundColor: rgba(p.cyan, 0.9), borderRadius: 3, stack: 's' },
+          { label: 'S. America', data: [120, 135, 128, 150, 162, 158, 175, 182], backgroundColor: rgba(p.accent, 0.9), borderRadius: 3, stack: 's' },
+          { label: 'N. America', data: [80, 86, 90, 98, 104, 101, 110, 118], backgroundColor: rgba(p.cyan, 0.9), borderRadius: 3, stack: 's' },
           { label: 'Europe', data: [60, 64, 66, 72, 78, 76, 82, 88], backgroundColor: rgba(p.gold, 0.9), borderRadius: 3, stack: 's' },
           { label: 'Asia', data: [22, 28, 30, 36, 41, 44, 52, 60], backgroundColor: rgba(p.silver, 0.85), borderRadius: 3, stack: 's' }
         ]
@@ -129,7 +130,7 @@
           r: {
             min: 40, max: 100,
             grid: { color: p.grid }, angleLines: { color: p.grid },
-            pointLabels: { color: p.label, font: { family: MONO, size: 10.5 } },
+            pointLabels: { color: p.label, font: { family: MONO, size: mob ? 9.5 : 12 } },
             ticks: { display: false, stepSize: 20 }
           }
         }
@@ -246,7 +247,7 @@
           y: axis(p, 'Predicted', { min: 58, max: 102 })
         },
         plugins: {
-          subtitle: { display: true, text: 'R² = 0.97   ·   MAE = 1.8', color: p.tick, font: { family: MONO, size: 11 }, padding: { bottom: 6 } },
+          subtitle: { display: true, text: 'R² = 0.97   ·   MAE = 1.8', color: p.tick, font: { family: MONO, size: 12.5 }, padding: { bottom: 8 } },
           tooltip: { callbacks: { label: (c) => `actual ${c.parsed.x} · predicted ${c.parsed.y}` } }
         }
       })
@@ -256,6 +257,8 @@
   function renderAll() {
     if (typeof Chart === 'undefined') return;
     Chart.defaults.font.family = MONO;
+    Chart.defaults.font.size = 12;
+    mob = (window.innerWidth || 1024) <= 560;
     instances.forEach(c => { try { c.destroy(); } catch (e) {} });
     instances = [];
     const p = P();

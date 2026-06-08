@@ -397,12 +397,23 @@ footer { border-top: 1px solid var(--border); padding: 30px 0; }
   .flag-btn { width: 23px; height: 23px; }
   .flag-btn svg { width: 16px; height: 16px; }
   .icon-btn { width: 34px; height: 34px; }
+  section { padding: 54px 0; }
   .hero-stats { grid-template-columns: repeat(2, 1fr); }
-  .proj-head { grid-template-columns: 1fr; }
-  .proj-head, .proj-body { padding-left: 20px; padding-right: 20px; }
-  .contact-card { padding: 38px 22px; }
+  .proj { gap: 18px !important; }
+  .proj-head { grid-template-columns: auto 1fr; gap: 14px; padding: 20px 18px 16px; }
+  .proj-index { width: 48px; height: 48px; font-size: 24px; }
+  .proj-body { padding: 20px 18px 22px; }
+  .proj-desc { font-size: 15px; }
+  .proj-bullets li { font-size: 14.5px; }
+  .contact-card { padding: 36px 20px; }
   .brand span.bname { display: none; }
-  .viz { padding: 14px; }
-  .viz .chart { height: 300px; }
-  .viz .chart.tall { height: 340px; }
+  .viz-grid { gap: 14px; }
+  .viz { padding: 12px; }
+  .viz figcaption { font-size: 12px; margin-top: 9px; line-height: 1.45; }
+  .viz .chart { height: 304px; }
+  .viz .chart.tall { height: 352px; }
+  .highlight { padding: 15px 16px; }
+  .highlight h4 { font-size: 16px; }
+  .highlight p { font-size: 14px; }
+  .stack-card { padding: 20px; }
 }
