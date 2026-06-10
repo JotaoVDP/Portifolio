@@ -355,6 +355,22 @@ header.scrolled { border-bottom-color: var(--border); }
 .viz .chart svg { display: block; }
 .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
+/* ---- chart entrance animations (scroll-triggered render) ---- */
+@keyframes caDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.ca-draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: caDraw 1.15s cubic-bezier(.4,0,.2,1) forwards; }
+@keyframes caRise { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
+.ca-rise { opacity: 0; animation: caRise .75s ease forwards; }
+@keyframes caGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.ca-grow { transform-box: fill-box; transform-origin: left center; transform: scaleX(0); animation: caGrow .9s cubic-bezier(.4,0,.2,1) forwards; }
+@keyframes caPop { 0% { opacity: 0; transform: scale(0); } 70% { opacity: 1; transform: scale(1.3); } 100% { opacity: 1; transform: scale(1); } }
+.ca-pop { transform-box: fill-box; transform-origin: center; opacity: 0; animation: caPop .5s ease forwards; }
+@media (prefers-reduced-motion: reduce) {
+  .ca-draw, .ca-rise, .ca-grow, .ca-pop { animation: none; opacity: 1; transform: none; stroke-dasharray: none; stroke-dashoffset: 0; }
+}
+
+/* ---- KPI sparklines ---- */
+.kpi-mini .spark { margin-top: 8px; opacity: 0.95; }
+
 /* mock table */
 .mock-table { width: 100%; border-collapse: collapse; font-size: 13.5px; font-family: var(--font-mono); }
 .mock-table th, .mock-table td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--border); }
