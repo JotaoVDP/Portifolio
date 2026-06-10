@@ -367,6 +367,12 @@ header.scrolled { border-bottom-color: var(--border); }
 @media (prefers-reduced-motion: reduce) {
   .ca-draw, .ca-rise, .ca-grow, .ca-pop { animation: none; opacity: 1; transform: none; stroke-dasharray: none; stroke-dashoffset: 0; }
 }
+/* settle: hard guarantee of the final state (added by JS shortly after render,
+   covers any environment where CSS animations are paused or skipped) */
+svg.settle .ca-draw, svg.settle .ca-rise, svg.settle .ca-grow, svg.settle .ca-pop {
+  animation: none !important; opacity: 1 !important; transform: none !important;
+  stroke-dasharray: none !important; stroke-dashoffset: 0 !important;
+}
 
 /* ---- KPI sparklines ---- */
 .kpi-mini .spark { margin-top: 8px; opacity: 0.95; }

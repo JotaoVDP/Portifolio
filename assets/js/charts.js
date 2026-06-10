@@ -23,7 +23,10 @@
   function rr(n) { return Math.round(n * 100) / 100; }
 
   function svg(w, h, body) {
-    return '<svg viewBox="0 0 ' + w + ' ' + h + '" width="100%" style="height:auto;display:block" ' +
+    /* explicit width/height attributes: Safari derives the intrinsic aspect
+       ratio from them (like <img>), so CSS width:100%;height:auto is reliable */
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" width="' + w + '" height="' + h +
+        '" style="width:100%;height:auto;display:block" ' +
         'xmlns="http://www.w3.org/2000/svg" font-family="var(--font-mono)" role="img">' + body + '</svg>';
   }
   function txt(x, y, s, fill, size, anchor, extra) {
@@ -351,7 +354,8 @@
     out += '<path d="' + smoothPath(p) + ' L' + rr(p[p.length - 1][0]) + ' ' + (H - 0) + ' L' + rr(p[0][0]) + ' ' + (H - 0) + ' Z" fill="url(#' + g + ')"' + rise(0.1) + '/>';
     out += '<path d="' + smoothPath(p) + '" fill="none" stroke="' + color + '" stroke-width="2" stroke-linecap="round"' + draw() + '/>';
     out += '<circle cx="' + rr(p[p.length - 1][0]) + '" cy="' + rr(p[p.length - 1][1]) + '" r="2.8" fill="' + color + '"' + pop(0.9) + '/>';
-    return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" style="height:auto;display:block" xmlns="http://www.w3.org/2000/svg">' + out + '</svg>';
+    return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H +
+        '" style="width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg">' + out + '</svg>';
   }
   function sparkOee()    { return sparkline([78, 80.5, 81.5, 83.5, 84.5, 85.8, 87.5, 88.5, 89.5, 90, 92, 93], C.accent, 'a'); }
   function sparkYield()  { return sparkline([90, 91, 91.5, 92, 92.3, 93, 93.5, 94, 94.2, 94.5, 94.8, 95.1], C.accent2, 'b'); }
@@ -377,21 +381,47 @@
 
   function renderOne(id) {
     var el = document.getElementById(id);
-    if (el && !el.dataset.rendered) { el.innerHTML = builders[id](); el.dataset.rendered = '1'; }
+    if (!el || el.dataset.rendered) return;
+    el.innerHTML = builders[id]();
+    el.dataset.rendered = '1';
+    /* settle: guarantee the final visible state even if CSS animations
+       are skipped/paused (e.g. Safari low-power mode) */
+    var node = el.firstChild;
+    window.setTimeout(function () { if (node && node.classList) node.classList.add('settle'); }, 2400);
   }
 
   function renderAll() {
     var ids = Object.keys(builders);
-    if (!('IntersectionObserver' in window)) { ids.forEach(renderOne); return; }
+    var pending = ids.slice();
+    function flush() { pending.forEach(renderOne); pending = []; }
+
+    if (!('IntersectionObserver' in window)) { flush(); return; }
+
+    /* Observe a parent with real geometry — the chart slots themselves are
+       empty (zero-height) before render, and WebKit never fires thresholds
+       for zero-area targets. */
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { renderOne(e.target.id); io.unobserve(e.target); }
+        if (!e.isIntersecting) return;
+        var slots = e.target.querySelectorAll('[data-chart-slot]');
+        for (var i = 0; i < slots.length; i++) renderOne(slots[i].id);
+        io.unobserve(e.target);
       });
-    }, { threshold: 0.18, rootMargin: '0px 0px -4% 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px 140px 0px' });
+
+    var observed = 0;
     ids.forEach(function (id) {
       var el = document.getElementById(id);
-      if (el) io.observe(el);
+      if (!el) return;
+      el.setAttribute('data-chart-slot', '1');
+      var host = el.closest('figure, .kpi-mini') || el.parentElement;
+      if (host) { io.observe(host); observed++; } else { renderOne(id); }
     });
+    if (!observed) flush();
+
+    /* hard guarantee: whatever the observer does, everything is rendered
+       shortly after load */
+    window.setTimeout(flush, 1800);
   }
 
   window.Charts = { renderAll: renderAll, builders: builders };
