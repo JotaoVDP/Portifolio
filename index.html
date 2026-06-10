@@ -34,7 +34,9 @@
 
       <div class="nav-links" id="navLinks">
         <a href="#about" data-i18n="navAbout">Sobre</a>
+        <a href="#expertise" data-i18n="navExpertise">Expertise</a>
         <a href="#projects" data-i18n="navProjects">Projetos</a>
+        <a href="#impact" data-i18n="navImpact">Impacto</a>
         <a href="#contact" data-i18n="navContact">Contato</a>
       </div>
 
@@ -153,41 +155,56 @@
 
 <!-- ============ ABOUT ============ -->
 <section id="about">
-  <div class="wrap about-grid">
+  <div class="wrap about-wrap">
     <div class="about-text reveal">
       <div class="kicker" data-i18n="aboutKicker">Perfil</div>
       <h2 class="section-title" data-i18n="aboutTitle">Sobre mim</h2>
       <p data-i18n="aboutP1"></p>
       <p data-i18n="aboutP2"></p>
+      <p data-i18n="aboutP3"></p>
     </div>
-    <div class="stack-card reveal d1">
-      <h4 data-i18n="aboutStackTitle">Stack principal</h4>
-      <div class="chips">
-        <span class="chip lead">Databricks</span>
-        <span class="chip lead">PySpark</span>
-        <span class="chip lead">Python</span>
-        <span class="chip lead">SQL</span>
-        <span class="chip">AWS</span>
-        <span class="chip">AWS Bedrock</span>
-        <span class="chip">Delta Lake</span>
-        <span class="chip">ETL / ELT</span>
-        <span class="chip">Data Modeling</span>
-        <span class="chip">Machine Learning</span>
-        <span class="chip">Computer Vision</span>
-        <span class="chip">Data Observability</span>
-        <span class="chip">MLOps</span>
-      </div>
-      <h4 data-i18n="aboutMgmtTitle" style="margin-top:20px">Gestão &amp; metodologia</h4>
-      <div class="chips">
-        <span class="chip lead">Six Sigma</span>
-        <span class="chip lead">Digital Twins</span>
-        <span class="chip lead">Industry 4.0</span>
-        <span class="chip">Agile / Scrum</span>
-        <span class="chip">Lean</span>
-        <span class="chip">Data Governance</span>
-        <span class="chip">Tech Leadership</span>
-        <span class="chip">Stakeholder Mgmt</span>
-      </div>
+  </div>
+</section>
+
+<!-- ============ EXPERTISE ============ -->
+<section id="expertise">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker" data-i18n="expKicker">Expertise</div>
+      <h2 class="section-title" data-i18n="expTitle">Áreas de expertise</h2>
+      <p class="section-sub" data-i18n="expSubtitle"></p>
+    </div>
+    <div class="exp-grid">
+      <article class="exp-card reveal">
+        <span class="exp-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="7" ry="2.6"/><path d="M5 5v6c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6V5"/><path d="M5 11v6c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6v-6"/></svg></span>
+        <h3 data-i18n="exp1Title">Data Engineering</h3>
+        <p data-i18n="exp1Desc"></p>
+      </article>
+      <article class="exp-card reveal">
+        <span class="exp-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4 4 0 0 1 0-8 5.5 5.5 0 0 1 10.6-1.4A3.8 3.8 0 0 1 18 18z"/><path d="M12 13v5m0 0-2-2m2 2 2-2"/></svg></span>
+        <h3 data-i18n="exp2Title">Cloud Data Platforms</h3>
+        <p data-i18n="exp2Desc"></p>
+      </article>
+      <article class="exp-card reveal">
+        <span class="exp-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M8 7.2 16 7.2M6.6 8.2 11 15.8M17.4 8.2 13 15.8"/></svg></span>
+        <h3 data-i18n="exp3Title">Data Integration</h3>
+        <p data-i18n="exp3Desc"></p>
+      </article>
+      <article class="exp-card reveal">
+        <span class="exp-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-5 3 10 2-5h7"/></svg></span>
+        <h3 data-i18n="exp4Title">Healthcare Interoperability</h3>
+        <p data-i18n="exp4Desc"></p>
+      </article>
+      <article class="exp-card reveal">
+        <span class="exp-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V9l6-3v3l6-3v4h6v11z"/><path d="M7 13v4M11 13v4M15 13v4"/></svg></span>
+        <h3 data-i18n="exp5Title">Industrial Digitalization</h3>
+        <p data-i18n="exp5Desc"></p>
+      </article>
+      <article class="exp-card reveal">
+        <span class="exp-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.2 2.9 7.4 7 9 4.1-1.6 7-4.8 7-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <h3 data-i18n="exp6Title">Data Governance</h3>
+        <p data-i18n="exp6Desc"></p>
+      </article>
     </div>
   </div>
 </section>
@@ -215,12 +232,15 @@
           </div>
         </div>
         <div class="proj-body">
-          <p class="proj-desc" data-i18n="p1Desc"></p>
-          <ul class="proj-bullets">
-            <li data-i18n="p1b1"></li>
-            <li data-i18n="p1b2"></li>
-            <li data-i18n="p1b3"></li>
-          </ul>
+          <div class="case">
+            <div class="case-row"><span class="case-k" data-i18n="csChallenge"></span><p data-i18n="p1Challenge"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csApproach"></span><p data-i18n="p1Approach"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csArchitecture"></span><p data-i18n="p1Architecture"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csDecisions"></span><p data-i18n="p1Decisions"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csImplementation"></span><p data-i18n="p1Implementation"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csOutcome"></span><p data-i18n="p1Outcome"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csLessons"></span><p data-i18n="p1Lessons"></p></div>
+          </div>
           <div class="viz-grid">
             <figure class="viz">
               <svg viewBox="0 0 480 168" width="100%" style="height:auto;display:block" xmlns="http://www.w3.org/2000/svg" font-family="var(--font-mono)">
@@ -231,25 +251,29 @@
                 </defs>
                 <text x="8" y="18" class="cx-text-d">plant signals</text>
                 <line x1="8" y1="84" x2="48" y2="84" stroke="var(--border-2)" stroke-width="1.4" marker-end="url(#ah1)"/>
-                <!-- bronze -->
-                <rect x="52"  y="44" width="116" height="80" rx="11" class="cx-surface2"/>
-                <rect x="52"  y="44" width="116" height="5" rx="2.5" fill="var(--bronze)"/>
-                <text x="110" y="82"  text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">BRONZE</text>
-                <text x="110" y="102" text-anchor="middle" fill="var(--text-faint)" font-size="10">raw ingest</text>
+                <g class="dgm-node" tabindex="0" role="button" data-modal-title="mBronzeT" data-modal-body="mBronzeB" data-i18n-aria="mBronzeT">
+                  <rect class="cx-surface2 dgm-box" x="52" y="44" width="116" height="80" rx="11"/>
+                  <rect x="52" y="44" width="116" height="5" rx="2.5" fill="var(--bronze)"/>
+                  <text x="110" y="82" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">BRONZE</text>
+                  <text x="110" y="102" text-anchor="middle" fill="var(--text-faint)" font-size="10">raw ingest</text>
+                </g>
                 <line x1="170" y1="84" x2="186" y2="84" stroke="var(--border-2)" stroke-width="1.4" marker-end="url(#ah1)"/>
-                <!-- silver -->
-                <rect x="188" y="44" width="116" height="80" rx="11" class="cx-surface2"/>
-                <rect x="188" y="44" width="116" height="5" rx="2.5" fill="var(--silver)"/>
-                <text x="246" y="82"  text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">SILVER</text>
-                <text x="246" y="102" text-anchor="middle" fill="var(--text-faint)" font-size="10">cleaned · conformed</text>
+                <g class="dgm-node" tabindex="0" role="button" data-modal-title="mSilverT" data-modal-body="mSilverB" data-i18n-aria="mSilverT">
+                  <rect class="cx-surface2 dgm-box" x="188" y="44" width="116" height="80" rx="11"/>
+                  <rect x="188" y="44" width="116" height="5" rx="2.5" fill="var(--silver)"/>
+                  <text x="246" y="82" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">SILVER</text>
+                  <text x="246" y="102" text-anchor="middle" fill="var(--text-faint)" font-size="10">cleaned · conformed</text>
+                </g>
                 <line x1="306" y1="84" x2="322" y2="84" stroke="var(--border-2)" stroke-width="1.4" marker-end="url(#ah1)"/>
-                <!-- gold -->
-                <rect x="324" y="44" width="116" height="80" rx="11" class="cx-surface2"/>
-                <rect x="324" y="44" width="116" height="5" rx="2.5" fill="var(--gold)"/>
-                <text x="382" y="82"  text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">GOLD</text>
-                <text x="382" y="102" text-anchor="middle" fill="var(--text-faint)" font-size="10">curated · data marts</text>
+                <g class="dgm-node" tabindex="0" role="button" data-modal-title="mGoldT" data-modal-body="mGoldB" data-i18n-aria="mGoldT">
+                  <rect class="cx-surface2 dgm-box" x="324" y="44" width="116" height="80" rx="11"/>
+                  <rect x="324" y="44" width="116" height="5" rx="2.5" fill="var(--gold)"/>
+                  <text x="382" y="82" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700">GOLD</text>
+                  <text x="382" y="102" text-anchor="middle" fill="var(--text-faint)" font-size="10">curated · data marts</text>
+                </g>
                 <text x="440" y="146" text-anchor="end" class="cx-text-d">→ analytics</text>
               </svg>
+              <div class="dgm-hint" data-i18n="dgmHint"></div>
               <figcaption data-i18n="p1Cap1"></figcaption>
             </figure>
             <figure class="viz">
@@ -285,7 +309,15 @@
           </div>
         </div>
         <div class="proj-body">
-          <p class="proj-desc" data-i18n="p2Desc"></p>
+          <div class="case">
+            <div class="case-row"><span class="case-k" data-i18n="csChallenge"></span><p data-i18n="p2Challenge"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csApproach"></span><p data-i18n="p2Approach"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csArchitecture"></span><p data-i18n="p2Architecture"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csDecisions"></span><p data-i18n="p2Decisions"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csImplementation"></span><p data-i18n="p2Implementation"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csOutcome"></span><p data-i18n="p2Outcome"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csLessons"></span><p data-i18n="p2Lessons"></p></div>
+          </div>
           <div class="highlight">
             <div class="h-badge">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.6L21 9.3l-5 4.4 1.6 6.6L12 16.9 6.4 20.3 8 13.7l-5-4.4 6.4-.7z"/></svg>
@@ -324,12 +356,15 @@
           </div>
         </div>
         <div class="proj-body">
-          <p class="proj-desc" data-i18n="p3Desc"></p>
-          <ul class="proj-bullets">
-            <li data-i18n="p3b1"></li>
-            <li data-i18n="p3b2"></li>
-            <li data-i18n="p3b3"></li>
-          </ul>
+          <div class="case">
+            <div class="case-row"><span class="case-k" data-i18n="csChallenge"></span><p data-i18n="p3Challenge"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csApproach"></span><p data-i18n="p3Approach"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csArchitecture"></span><p data-i18n="p3Architecture"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csDecisions"></span><p data-i18n="p3Decisions"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csImplementation"></span><p data-i18n="p3Implementation"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csOutcome"></span><p data-i18n="p3Outcome"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csLessons"></span><p data-i18n="p3Lessons"></p></div>
+          </div>
           <div class="viz-grid">
             <figure class="viz">
               <div class="chart tall"><canvas id="chart-blend"></canvas></div>
@@ -363,12 +398,15 @@
           </div>
         </div>
         <div class="proj-body">
-          <p class="proj-desc" data-i18n="p4Desc"></p>
-          <ul class="proj-bullets">
-            <li data-i18n="p4b1"></li>
-            <li data-i18n="p4b2"></li>
-            <li data-i18n="p4b3"></li>
-          </ul>
+          <div class="case">
+            <div class="case-row"><span class="case-k" data-i18n="csChallenge"></span><p data-i18n="p4Challenge"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csApproach"></span><p data-i18n="p4Approach"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csArchitecture"></span><p data-i18n="p4Architecture"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csDecisions"></span><p data-i18n="p4Decisions"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csImplementation"></span><p data-i18n="p4Implementation"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csOutcome"></span><p data-i18n="p4Outcome"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csLessons"></span><p data-i18n="p4Lessons"></p></div>
+          </div>
           <div class="highlight">
             <div class="h-badge">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.6L21 9.3l-5 4.4 1.6 6.6L12 16.9 6.4 20.3 8 13.7l-5-4.4 6.4-.7z"/></svg>
@@ -463,7 +501,15 @@
           </div>
         </div>
         <div class="proj-body">
-          <p class="proj-desc" data-i18n="p5Desc"></p>
+          <div class="case">
+            <div class="case-row"><span class="case-k" data-i18n="csChallenge"></span><p data-i18n="p5Challenge"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csApproach"></span><p data-i18n="p5Approach"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csArchitecture"></span><p data-i18n="p5Architecture"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csDecisions"></span><p data-i18n="p5Decisions"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csImplementation"></span><p data-i18n="p5Implementation"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csOutcome"></span><p data-i18n="p5Outcome"></p></div>
+            <div class="case-row"><span class="case-k" data-i18n="csLessons"></span><p data-i18n="p5Lessons"></p></div>
+          </div>
           <div class="highlight">
             <div class="h-badge">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.6 6.6L21 9.3l-5 4.4 1.6 6.6L12 16.9 6.4 20.3 8 13.7l-5-4.4 6.4-.7z"/></svg>
@@ -480,32 +526,39 @@
                     <path d="M0 0 L10 5 L0 10 z" fill="var(--border-2)"/>
                   </marker>
                 </defs>
-                <!-- physical -->
-                <rect x="14" y="96" width="104" height="48" rx="10" class="cx-surface2"/>
-                <rect x="14" y="96" width="104" height="4" rx="2" fill="var(--accent-2)"/>
-                <text x="66" y="118" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Plant</text>
-                <text x="66" y="132" text-anchor="middle" class="cx-text">sensors · MES</text>
-                <!-- data layer -->
-                <rect x="150" y="96" width="104" height="48" rx="10" class="cx-surface2"/>
-                <rect x="150" y="96" width="104" height="4" rx="2" fill="var(--gold)"/>
-                <text x="202" y="118" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Data Layer</text>
-                <text x="202" y="132" text-anchor="middle" class="cx-text">Gold marts</text>
-                <!-- models -->
-                <rect x="286" y="54" width="116" height="42" rx="10" class="cx-surface2"/>
-                <text x="344" y="74" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Regression</text>
-                <text x="344" y="88" text-anchor="middle" class="cx-text">predictive</text>
-                <rect x="286" y="106" width="116" height="42" rx="10" class="cx-surface2"/>
-                <text x="344" y="126" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Classification</text>
-                <text x="344" y="140" text-anchor="middle" class="cx-text">state · quality</text>
-                <!-- agent -->
-                <rect x="150" y="176" width="104" height="48" rx="10" class="cx-surface2"/>
-                <rect x="150" y="176" width="104" height="4" rx="2" fill="var(--accent)"/>
-                <text x="202" y="198" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">AI agent</text>
-                <text x="202" y="212" text-anchor="middle" class="cx-text">Amazon Bedrock</text>
-                <!-- app -->
-                <rect x="14" y="176" width="104" height="48" rx="10" class="cx-surface2"/>
-                <text x="66" y="198" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Web app</text>
-                <text x="66" y="212" text-anchor="middle" class="cx-text">front + back</text>
+                <g class="dgm-node" tabindex="0" role="button" data-modal-title="dtPlantT" data-modal-body="dtPlantB" data-i18n-aria="dtPlantT">
+                  <rect x="14" y="96" width="104" height="48" rx="10" class="cx-surface2 dgm-box"/>
+                  <rect x="14" y="96" width="104" height="4" rx="2" fill="var(--accent-2)"/>
+                  <text x="66" y="118" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Plant</text>
+                  <text x="66" y="132" text-anchor="middle" class="cx-text">sensors · MES</text>
+                </g>
+                <g class="dgm-node" tabindex="0" role="button" data-modal-title="dtDataT" data-modal-body="dtDataB" data-i18n-aria="dtDataT">
+                  <rect x="150" y="96" width="104" height="48" rx="10" class="cx-surface2 dgm-box"/>
+                  <rect x="150" y="96" width="104" height="4" rx="2" fill="var(--gold)"/>
+                  <text x="202" y="118" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Data Layer</text>
+                  <text x="202" y="132" text-anchor="middle" class="cx-text">Gold marts</text>
+                </g>
+                <g class="dgm-node" tabindex="0" role="button" data-modal-title="dtModelsT" data-modal-body="dtModelsB" data-i18n-aria="dtModelsT">
+                  <rect x="286" y="54" width="116" height="42" rx="10" class="cx-surface2 dgm-box"/>
+                  <text x="344" y="74" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Regression</text>
+                  <text x="344" y="88" text-anchor="middle" class="cx-text">predictive</text>
+                </g>
+                <g class="dgm-node" tabindex="0" role="button" data-modal-title="dtModelsT" data-modal-body="dtModelsB" data-i18n-aria="dtModelsT">
+                  <rect x="286" y="106" width="116" height="42" rx="10" class="cx-surface2 dgm-box"/>
+                  <text x="344" y="126" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Classification</text>
+                  <text x="344" y="140" text-anchor="middle" class="cx-text">state · quality</text>
+                </g>
+                <g class="dgm-node" tabindex="0" role="button" data-modal-title="dtAgentT" data-modal-body="dtAgentB" data-i18n-aria="dtAgentT">
+                  <rect x="150" y="176" width="104" height="48" rx="10" class="cx-surface2 dgm-box"/>
+                  <rect x="150" y="176" width="104" height="4" rx="2" fill="var(--accent)"/>
+                  <text x="202" y="198" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">AI agent</text>
+                  <text x="202" y="212" text-anchor="middle" class="cx-text">Amazon Bedrock</text>
+                </g>
+                <g class="dgm-node" tabindex="0" role="button" data-modal-title="dtAppT" data-modal-body="dtAppB" data-i18n-aria="dtAppT">
+                  <rect x="14" y="176" width="104" height="48" rx="10" class="cx-surface2 dgm-box"/>
+                  <text x="66" y="198" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Web app</text>
+                  <text x="66" y="212" text-anchor="middle" class="cx-text">front + back</text>
+                </g>
                 <!-- arrows -->
                 <line x1="118" y1="120" x2="148" y2="120" stroke="var(--border-2)" stroke-width="1.4" marker-end="url(#ah5)"/>
                 <line x1="254" y1="112" x2="284" y2="80"  stroke="var(--border-2)" stroke-width="1.4" marker-end="url(#ah5)"/>
@@ -514,6 +567,7 @@
                 <line x1="150" y1="200" x2="120" y2="200" stroke="var(--border-2)" stroke-width="1.4" marker-end="url(#ah5)"/>
                 <text x="14" y="28" class="cx-text-d">digital twin · system map</text>
               </svg>
+              <div class="dgm-hint" data-i18n="dgmHint"></div>
               <figcaption data-i18n="p5Cap1"></figcaption>
             </figure>
             <figure class="viz">
@@ -525,28 +579,95 @@
             <figure class="viz">
               <svg viewBox="0 0 480 176" width="100%" style="height:auto;display:block" xmlns="http://www.w3.org/2000/svg" font-family="var(--font-mono)">
                 <text x="8" y="16" class="cx-text-d">ai-agent observability · AWS</text>
-                <!-- layer 1 -->
-                <rect x="8"  y="26"  width="464" height="38" rx="9" class="cx-surface2"/>
-                <rect x="8"  y="26"  width="5" height="38" rx="2.5" fill="var(--accent)"/>
-                <text x="26" y="44" fill="var(--text)" font-size="13" font-weight="600">Amazon Bedrock · AI agent</text>
-                <text x="26" y="58" class="cx-text">model invocation · guardrails · invocation logs</text>
-                <!-- layer 2 -->
-                <rect x="8"  y="70"  width="464" height="38" rx="9" class="cx-surface2"/>
-                <rect x="8"  y="70"  width="5" height="38" rx="2.5" fill="var(--accent-2)"/>
-                <text x="26" y="88" fill="var(--text)" font-size="13" font-weight="600">Amazon CloudWatch · AWS X-Ray</text>
-                <text x="26" y="102" class="cx-text">metrics · logs · distributed tracing</text>
-                <!-- layer 3 -->
-                <rect x="8"  y="114" width="464" height="38" rx="9" class="cx-surface2"/>
-                <rect x="8"  y="114" width="5" height="38" rx="2.5" fill="var(--gold)"/>
-                <text x="26" y="132" fill="var(--text)" font-size="13" font-weight="600">CloudWatch dashboards &amp; alarms</text>
-                <text x="26" y="146" class="cx-text">automated alerts · SLAs · drift</text>
+                <g class="dgm-node" tabindex="0" role="button" data-modal-title="obsAgentT" data-modal-body="obsAgentB" data-i18n-aria="obsAgentT">
+                  <rect x="8"  y="26"  width="464" height="38" rx="9" class="cx-surface2 dgm-box"/>
+                  <rect x="8"  y="26"  width="5" height="38" rx="2.5" fill="var(--accent)"/>
+                  <text x="26" y="44" fill="var(--text)" font-size="13" font-weight="600">Amazon Bedrock · AI agent</text>
+                  <text x="26" y="58" class="cx-text">model invocation · guardrails · invocation logs</text>
+                </g>
+                <g class="dgm-node" tabindex="0" role="button" data-modal-title="obsCwT" data-modal-body="obsCwB" data-i18n-aria="obsCwT">
+                  <rect x="8"  y="70"  width="464" height="38" rx="9" class="cx-surface2 dgm-box"/>
+                  <rect x="8"  y="70"  width="5" height="38" rx="2.5" fill="var(--accent-2)"/>
+                  <text x="26" y="88" fill="var(--text)" font-size="13" font-weight="600">Amazon CloudWatch · AWS X-Ray</text>
+                  <text x="26" y="102" class="cx-text">metrics · logs · distributed tracing</text>
+                </g>
+                <g class="dgm-node" tabindex="0" role="button" data-modal-title="obsDashT" data-modal-body="obsDashB" data-i18n-aria="obsDashT">
+                  <rect x="8"  y="114" width="464" height="38" rx="9" class="cx-surface2 dgm-box"/>
+                  <rect x="8"  y="114" width="5" height="38" rx="2.5" fill="var(--gold)"/>
+                  <text x="26" y="132" fill="var(--text)" font-size="13" font-weight="600">CloudWatch dashboards &amp; alarms</text>
+                  <text x="26" y="146" class="cx-text">automated alerts · SLAs · drift</text>
+                </g>
               </svg>
+              <div class="dgm-hint" data-i18n="dgmHint"></div>
               <figcaption data-i18n="p5Cap3"></figcaption>
             </figure>
           </div>
         </div>
       </article>
 
+    </div>
+  </div>
+</section>
+
+<!-- ============ IMPACT ============ -->
+<section id="impact">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker" data-i18n="impactKicker">Impacto</div>
+      <h2 class="section-title" data-i18n="impactTitle">Impacto profissional</h2>
+      <p class="section-sub" data-i18n="impactSubtitle"></p>
+    </div>
+    <ul class="impact-list">
+      <li class="impact-item reveal"><span class="impact-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-11"/></svg></span><span data-i18n="impact1"></span></li>
+      <li class="impact-item reveal"><span class="impact-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-11"/></svg></span><span data-i18n="impact2"></span></li>
+      <li class="impact-item reveal"><span class="impact-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-11"/></svg></span><span data-i18n="impact3"></span></li>
+      <li class="impact-item reveal"><span class="impact-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-11"/></svg></span><span data-i18n="impact4"></span></li>
+      <li class="impact-item reveal"><span class="impact-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-11"/></svg></span><span data-i18n="impact5"></span></li>
+      <li class="impact-item reveal"><span class="impact-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-11"/></svg></span><span data-i18n="impact6"></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ TECH ============ -->
+<section id="tech">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker" data-i18n="techKicker">Ferramentas</div>
+      <h2 class="section-title" data-i18n="techTitle">Tecnologias &amp; ferramentas</h2>
+      <p class="section-sub" data-i18n="techSubtitle"></p>
+    </div>
+    <div class="stack-card reveal">
+      <h4 data-i18n="aboutStackTitle">Stack principal</h4>
+      <div class="chips">
+        <span class="chip lead">Azure</span>
+        <span class="chip lead">Databricks</span>
+        <span class="chip lead">Apache Spark</span>
+        <span class="chip lead">Python</span>
+        <span class="chip lead">SQL</span>
+        <span class="chip">PySpark</span>
+        <span class="chip">Delta Lake</span>
+        <span class="chip">AWS</span>
+        <span class="chip">Amazon Bedrock</span>
+        <span class="chip">Data Integration</span>
+        <span class="chip">ETL / ELT</span>
+        <span class="chip">Data Modeling</span>
+        <span class="chip">Data Observability</span>
+        <span class="chip">Machine Learning</span>
+        <span class="chip">Computer Vision</span>
+        <span class="chip">MLOps</span>
+      </div>
+      <h4 data-i18n="aboutMgmtTitle" style="margin-top:20px">Gestão &amp; metodologia</h4>
+      <div class="chips">
+        <span class="chip lead">Data Architecture</span>
+        <span class="chip lead">Data Governance</span>
+        <span class="chip lead">Industry 4.0</span>
+        <span class="chip">Six Sigma</span>
+        <span class="chip">Digital Twins</span>
+        <span class="chip">Agile / Scrum</span>
+        <span class="chip">Lean</span>
+        <span class="chip">Tech Leadership</span>
+        <span class="chip">Stakeholder Mgmt</span>
+      </div>
     </div>
   </div>
 </section>
@@ -584,6 +705,18 @@
     <a class="totop" href="#top" data-i18n="backToTop">Voltar ao topo</a>
   </div>
 </footer>
+
+<!-- ============ DETAIL MODAL ============ -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-overlay" data-close></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" type="button" data-close data-i18n-aria="modalClose" aria-label="Fechar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <h3 class="modal-title" id="modalTitle"></h3>
+    <p class="modal-body" id="modalBody"></p>
+  </div>
+</div>
 
 <script src="assets/js/i18n.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
