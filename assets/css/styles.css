@@ -351,9 +351,9 @@ header.scrolled { border-bottom-color: var(--border); }
   padding: 18px; overflow: hidden;
 }
 .viz figcaption { font-size: 13px; color: var(--text-dim); margin-top: 12px; font-family: var(--font-mono); letter-spacing: .01em; }
-.viz .chart { position: relative; width: 100%; height: 320px; }
-.viz .chart.tall { height: 360px; }
-.viz .chart canvas { display: block; }
+.viz .chart { width: 100%; }
+.viz .chart svg { display: block; }
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
 /* mock table */
 .mock-table { width: 100%; border-collapse: collapse; font-size: 13.5px; font-family: var(--font-mono); }
@@ -463,8 +463,6 @@ footer { border-top: 1px solid var(--border); padding: 30px 0; }
   .viz-grid { gap: 14px; }
   .viz { padding: 12px; }
   .viz figcaption { font-size: 12px; margin-top: 9px; line-height: 1.45; }
-  .viz .chart { height: 304px; }
-  .viz .chart.tall { height: 352px; }
   .highlight { padding: 15px 16px; }
   .highlight h4 { font-size: 16px; }
   .highlight p { font-size: 14px; }

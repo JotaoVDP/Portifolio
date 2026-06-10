@@ -1,271 +1,258 @@
 /* ============================================================
-   charts.js — Interactive, responsive charts (Chart.js v4)
-   Illustrative data. Colors are read from the active theme's
-   CSS variables, so charts adapt to light/dark. Charts are
-   destroyed and rebuilt on theme change (Charts.renderAll()).
+   charts.js — dependency-free SVG charts
+   - viewBox scaling: identical proportions on any screen
+   - colors via CSS variables: adapts to light/dark theme live
+   - values labeled in the chart itself (no hover needed on mobile)
    ============================================================ */
 (function () {
-  const MONO = "'JetBrains Mono', ui-monospace, monospace";
-  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  'use strict';
 
-  function P() {
-    return {
-      accent: css('--accent'), cyan: css('--accent-2'), gold: css('--gold'),
-      bronze: css('--bronze'), silver: css('--silver'), ok: css('--ok'),
-      grid: css('--border'), axis: css('--border-2'),
-      tick: css('--text-faint'), label: css('--text-dim'),
-      surface: css('--surface'), text: css('--text')
-    };
-  }
-  function rgba(hex, a) {
-    hex = (hex || '#888').replace('#', '');
-    if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
-    const n = parseInt(hex, 16);
-    return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
-  }
+  /* ---------- palette (CSS variables) ---------- */
+  var C = {
+    accent: 'var(--accent)', accent2: 'var(--accent-2)', gold: 'var(--gold)',
+    silver: 'var(--silver)', bronze: 'var(--bronze)', ok: 'var(--ok)',
+    text: 'var(--text)', dim: 'var(--text-dim)', faint: 'var(--text-faint)',
+    grid: 'var(--border)', grid2: 'var(--border-2)', surface: 'var(--surface)'
+  };
+  var FS = { tick: 10.5, label: 11, value: 11.5, legend: 11 };
 
-  let instances = [];
-  let mob = false;
-  function add(id, cfg) {
-    const el = document.getElementById(id);
-    if (!el || typeof Chart === 'undefined') return;
-    instances.push(new Chart(el.getContext('2d'), cfg));
+  function svg(w, h, body) {
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" width="100%" style="height:auto;display:block" ' +
+        'xmlns="http://www.w3.org/2000/svg" font-family="var(--font-mono)" role="img">' + body + '</svg>';
   }
+  function txt(x, y, s, fill, size, anchor, extra) {
+    return '<text x="' + x + '" y="' + y + '" fill="' + (fill || C.faint) + '" font-size="' + (size || FS.tick) + '"' +
+        (anchor ? ' text-anchor="' + anchor + '"' : '') + (extra ? ' ' + extra : '') + '>' + s + '</text>';
+  }
+  function line(x1, y1, x2, y2, stroke, w, extra) {
+    return '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="' + stroke +
+        '" stroke-width="' + (w || 1) + '"' + (extra ? ' ' + extra : '') + '/>';
+  }
+  function r2(n) { return Math.round(n * 100) / 100; }
 
-  function common(p, extra) {
-    return Object.assign({
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: 'nearest', intersect: false },
-      plugins: {
-        legend: {
-          labels: {
-            color: p.label, usePointStyle: true, boxWidth: mob ? 7 : 9, boxHeight: mob ? 7 : 9, padding: mob ? 9 : 16,
-            font: { family: MONO, size: mob ? 10.5 : 12.5 }
-          }
-        },
-        tooltip: {
-          backgroundColor: rgba(p.surface, 0.97), titleColor: p.text, bodyColor: p.label,
-          borderColor: p.axis, borderWidth: 1, padding: 12, cornerRadius: 8,
-          titleFont: { family: MONO, size: 13 }, bodyFont: { family: MONO, size: 13 },
-          footerFont: { family: MONO, size: 12 }, footerColor: p.tick
-        }
-      }
-    }, extra || {});
-  }
-  function axis(p, title, opts) {
-    return Object.assign({
-      grid: { color: p.grid, drawTicks: false },
-      border: { color: p.axis, display: true },
-      ticks: { color: p.tick, font: { family: MONO, size: mob ? 10 : 12 }, padding: 5, autoSkip: true, maxRotation: 0, autoSkipPadding: 10, maxTicksLimit: mob ? 7 : 13 },
-      title: title ? { display: !mob, text: title, color: p.label, font: { family: MONO, size: 11 } } : undefined
-    }, opts || {});
-  }
-
-  /* ---- 1 · Ingestion: stacked bars by continent ---- */
-  function ingestion(p) {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'];
-    add('chart-ingestion', {
-      type: 'bar',
-      data: {
-        labels: months,
-        datasets: [
-          { label: 'S. America', data: [120, 135, 128, 150, 162, 158, 175, 182], backgroundColor: rgba(p.accent, 0.9), borderRadius: 3, stack: 's' },
-          { label: 'N. America', data: [80, 86, 90, 98, 104, 101, 110, 118], backgroundColor: rgba(p.cyan, 0.9), borderRadius: 3, stack: 's' },
-          { label: 'Europe', data: [60, 64, 66, 72, 78, 76, 82, 88], backgroundColor: rgba(p.gold, 0.9), borderRadius: 3, stack: 's' },
-          { label: 'Asia', data: [22, 28, 30, 36, 41, 44, 52, 60], backgroundColor: rgba(p.silver, 0.85), borderRadius: 3, stack: 's' }
-        ]
-      },
-      options: common(p, {
-        scales: {
-          x: axis(p, null, { stacked: true, grid: { display: false } }),
-          y: axis(p, 'GB / day', { stacked: true, beginAtZero: true })
-        },
-        plugins: {
-          tooltip: {
-            callbacks: {
-              footer: (items) => 'Total: ' + items.reduce((s, i) => s + i.parsed.y, 0) + ' GB/day'
-            }
-          }
-        }
-      })
+  /* compact legend row: [[label,color],...] */
+  function legend(items, x, y) {
+    var out = '', cx = x;
+    items.forEach(function (it) {
+      out += '<circle cx="' + cx + '" cy="' + (y - 3.5) + '" r="4" fill="' + it[1] + '"/>';
+      out += txt(cx + 9, y, it[0], C.dim, FS.legend);
+      cx += 9 + it[0].length * 6.6 + 17;
     });
+    return out;
   }
 
-  /* ---- 2a · KPI trend (multi-line + target) ---- */
-  function kpiTrend(p) {
-    const m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    add('chart-kpitrend', {
-      type: 'line',
-      data: {
-        labels: m,
-        datasets: [
-          { label: 'OEE %', data: [78, 80, 81, 83, 84, 85, 86, 88, 89, 90, 92, 93], borderColor: p.accent, backgroundColor: rgba(p.accent, 0.12), fill: true, tension: 0.35, borderWidth: 2.4, pointRadius: 0, pointHoverRadius: 5 },
-          { label: 'Yield %', data: [90, 90.5, 91, 91.4, 92, 92.3, 93, 93.4, 93.9, 94.1, 94.6, 95], borderColor: p.cyan, backgroundColor: 'transparent', tension: 0.35, borderWidth: 2.4, pointRadius: 0, pointHoverRadius: 5 },
-          { label: 'Target', data: Array(12).fill(90), borderColor: p.tick, borderDash: [5, 4], borderWidth: 1.3, pointRadius: 0, fill: false }
-        ]
-      },
-      options: common(p, {
-        scales: {
-          x: axis(p, null, { grid: { display: false } }),
-          y: axis(p, '%', { suggestedMin: 70, suggestedMax: 100 })
-        }
-      })
+  /* linear scale factory */
+  function scale(d0, d1, r0, r1) {
+    var k = (r1 - r0) / (d1 - d0);
+    return function (v) { return r2(r0 + (v - d0) * k); };
+  }
+
+  /* y gridlines + tick labels */
+  function yAxis(ticks, sy, x0, x1, fmt) {
+    var out = '';
+    ticks.forEach(function (t) {
+      var y = sy(t);
+      out += line(x0, y, x1, y, C.grid, 1, 'opacity="0.85"');
+      out += txt(x0 - 7, y + 3.5, fmt ? fmt(t) : t, C.faint, FS.tick, 'end');
     });
+    return out;
   }
 
-  /* ---- 2b · ISO 25012 radar (before vs after observability) ---- */
-  function isoRadar(p) {
-    add('chart-iso', {
-      type: 'radar',
-      data: {
-        labels: ['Accuracy', 'Completeness', 'Consistency', 'Credibility', 'Currentness', 'Accessibility', 'Compliance'],
-        datasets: [
-          { label: 'Before', data: [70, 64, 72, 68, 60, 62, 66], borderColor: rgba(p.silver, 0.9), backgroundColor: rgba(p.silver, 0.12), borderWidth: 1.6, pointRadius: 2.5, pointBackgroundColor: p.silver },
-          { label: 'After observability', data: [94, 88, 96, 90, 86, 89, 92], borderColor: p.accent, backgroundColor: rgba(p.accent, 0.16), borderWidth: 2, pointRadius: 3, pointBackgroundColor: p.accent }
-        ]
-      },
-      options: common(p, {
-        scales: {
-          r: {
-            min: 40, max: 100,
-            grid: { color: p.grid }, angleLines: { color: p.grid },
-            pointLabels: { color: p.label, font: { family: MONO, size: mob ? 9.5 : 12 } },
-            ticks: { display: false, stepSize: 20 }
-          }
-        }
-      })
-    });
-  }
-
-  /* ---- 3a · Blend composition (doughnut) ---- */
-  function blend(p) {
-    add('chart-blend', {
-      type: 'doughnut',
-      data: {
-        labels: ['Material A', 'Material B', 'Material C', 'Material D', 'Additives'],
-        datasets: [{
-          data: [38, 27, 19, 11, 5],
-          backgroundColor: [p.accent, p.cyan, p.gold, p.bronze, p.silver],
-          borderColor: p.surface, borderWidth: 2, hoverOffset: 8
-        }]
-      },
-      options: common(p, {
-        cutout: '58%',
-        plugins: {
-          legend: { position: 'bottom' },
-          tooltip: { callbacks: { label: (c) => ` ${c.label}: ${c.parsed}%` } }
-        }
-      })
-    });
-  }
-
-  /* ---- 3b · Cost vs quality frontier (scatter + line) ---- */
-  function frontier(p) {
-    const feasible = [
-      { x: 0.40, y: 94.5 }, { x: 0.50, y: 95.5 }, { x: 0.60, y: 96.0 },
-      { x: 0.75, y: 97.2 }, { x: 0.85, y: 98.0 }, { x: 0.35, y: 93.8 },
-      { x: 0.48, y: 95.0 }, { x: 0.66, y: 96.6 }, { x: 0.90, y: 98.4 }
+  /* ============ 1. Ingestion — stacked bars ============ */
+  function ingestion() {
+    var W = 420, H = 250, L = 42, R = 12, T = 34, B = 30;
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'];
+    var series = [
+      ['S. America', C.accent,  [120, 135, 128, 150, 162, 158, 175, 182]],
+      ['N. America', C.accent2, [60, 64, 61, 70, 74, 72, 80, 84]],
+      ['Europe',     C.gold,    [38, 40, 42, 46, 48, 47, 52, 55]],
+      ['Asia',       C.silver,  [22, 24, 25, 27, 29, 30, 33, 35]]
     ];
-    const front = [
-      { x: 0.30, y: 95.2 }, { x: 0.42, y: 96.8 }, { x: 0.55, y: 97.5 },
-      { x: 0.68, y: 98.3 }, { x: 0.80, y: 98.9 }, { x: 0.92, y: 99.3 }
-    ];
-    add('chart-frontier', {
-      type: 'scatter',
-      data: {
-        datasets: [
-          { type: 'line', label: 'Pareto frontier', data: front, borderColor: p.accent, borderWidth: 2.2, tension: 0.3, pointRadius: 0, fill: false },
-          { type: 'line', label: 'Quality target', data: [{ x: 0.25, y: 97.5 }, { x: 0.97, y: 97.5 }], borderColor: p.cyan, borderDash: [5, 4], borderWidth: 1.3, pointRadius: 0, fill: false },
-          { label: 'Feasible mixes', data: feasible, backgroundColor: rgba(p.tick, 0.7), pointRadius: 4, pointHoverRadius: 6 },
-          { label: 'Selected optimum', data: [{ x: 0.55, y: 97.5 }], backgroundColor: p.accent, pointRadius: 7, pointHoverRadius: 9, pointStyle: 'rectRot' }
-        ]
-      },
-      options: common(p, {
-        scales: {
-          x: axis(p, 'Relative material cost', { min: 0.2, max: 1.0 }),
-          y: axis(p, 'Quality %', { min: 92, max: 100 })
-        },
-        plugins: { tooltip: { callbacks: { label: (c) => `${c.dataset.label}: cost ${c.parsed.x}, quality ${c.parsed.y}%` } } }
-      })
+    var sy = scale(0, 380, H - B, T);
+    var out = legend(series.map(function (s) { return [s[0], s[1]]; }), L, 16);
+    out += yAxis([0, 100, 200, 300], sy, L, W - R);
+    var n = months.length, step = (W - L - R) / n, bw = 24;
+    months.forEach(function (m, i) {
+      var x = r2(L + step * i + (step - bw) / 2), acc = 0;
+      series.forEach(function (s) {
+        var v = s[2][i], y1 = sy(acc + v), hh = r2(sy(acc) - y1);
+        out += '<rect x="' + x + '" y="' + y1 + '" width="' + bw + '" height="' + hh + '" fill="' + s[1] + '" rx="2"/>';
+        acc += v;
+      });
+      out += txt(x + bw / 2, H - B + 16, m, C.faint, FS.tick, 'middle');
     });
+    out += txt(L - 30, T - 6, 'GB/day', C.faint, 10);
+    return svg(W, H, out);
   }
 
-  /* ---- 4 · Scrap class distribution (horizontal bars) ---- */
-  function scrapDist(p) {
-    const conf = [0.98, 0.96, 0.94, 0.91, 0.89], tons = [510, 390, 270, 210, 120];
-    add('chart-scrap', {
-      type: 'bar',
-      data: {
-        labels: ['Class A', 'Class B', 'Class C', 'Class D', 'Class E'],
-        datasets: [{
-          label: 'Volume share %',
-          data: [34, 26, 18, 14, 8],
-          backgroundColor: [p.accent, p.cyan, p.gold, p.bronze, p.silver],
-          borderRadius: 4
-        }]
-      },
-      options: common(p, {
-        indexAxis: 'y',
-        scales: {
-          x: axis(p, 'Share %', { beginAtZero: true, suggestedMax: 40 }),
-          y: axis(p, null, { grid: { display: false } })
-        },
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: (c) => ` Share: ${c.parsed.x}%`,
-              footer: (items) => { const i = items[0].dataIndex; return `Confidence: ${conf[i].toFixed(2)} · ${tons[i]} t/mo`; }
-            }
-          }
-        }
-      })
-    });
-  }
-
-  /* ---- 5 · Predicted vs actual (scatter + identity) ---- */
-  function predActual(p) {
-    let seed = 7; const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
-    const pts = [];
-    for (let i = 0; i < 44; i++) {
-      const a = 62 + rnd() * 36;
-      const pr = Math.min(99.5, Math.max(60, a + (rnd() - 0.5) * 6));
-      pts.push({ x: +a.toFixed(1), y: +pr.toFixed(1) });
+  /* ============ 2. KPI trend — clean lines, no fill ============ */
+  function kpitrend() {
+    var W = 420, H = 250, L = 40, R = 46, T = 34, B = 30;
+    var oee =   [78, 80.5, 81.5, 83.5, 84.5, 85.8, 87.5, 88.5, 89.5, 90, 92, 93];
+    var yieldv = [90, 91, 91.5, 92, 92.3, 93, 93.5, 94, 94.2, 94.5, 94.8, 95.1];
+    var months = ['Jan', '', 'Mar', '', 'May', '', 'Jul', '', 'Sep', '', 'Nov', ''];
+    var sy = scale(70, 100, H - B, T);
+    var sx = scale(0, 11, L, W - R);
+    function path(data, stroke) {
+      var d = data.map(function (v, i) { return (i ? 'L' : 'M') + sx(i) + ' ' + sy(v); }).join(' ');
+      return '<path d="' + d + '" fill="none" stroke="' + stroke + '" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>';
     }
-    add('chart-pred', {
-      type: 'scatter',
-      data: {
-        datasets: [
-          { type: 'line', label: 'Ideal (y = x)', data: [{ x: 60, y: 60 }, { x: 100, y: 100 }], borderColor: p.cyan, borderDash: [5, 4], borderWidth: 1.5, pointRadius: 0, fill: false },
-          { label: 'Samples', data: pts, backgroundColor: rgba(p.accent, 0.62), pointRadius: 3.5, pointHoverRadius: 6 }
-        ]
-      },
-      options: common(p, {
-        scales: {
-          x: axis(p, 'Actual', { min: 58, max: 102 }),
-          y: axis(p, 'Predicted', { min: 58, max: 102 })
-        },
-        plugins: {
-          subtitle: { display: true, text: 'R² = 0.97   ·   MAE = 1.8', color: p.tick, font: { family: MONO, size: 12.5 }, padding: { bottom: 8 } },
-          tooltip: { callbacks: { label: (c) => `actual ${c.parsed.x} · predicted ${c.parsed.y}` } }
-        }
-      })
-    });
+    var out = legend([['OEE %', C.accent], ['Yield %', C.accent2], ['Target', C.faint]], L, 16);
+    out += yAxis([70, 80, 90, 100], sy, L, W - R);
+    months.forEach(function (m, i) { if (m) out += txt(sx(i), H - B + 16, m, C.faint, FS.tick, 'middle'); });
+    out += line(L, sy(90), W - R, sy(90), C.faint, 1.4, 'stroke-dasharray="5 5" opacity="0.8"');
+    out += path(yieldv, C.accent2) + path(oee, C.accent);
+    out += '<circle cx="' + sx(11) + '" cy="' + sy(93) + '" r="4" fill="' + C.accent + '"/>';
+    out += '<circle cx="' + sx(11) + '" cy="' + sy(95.1) + '" r="4" fill="' + C.accent2 + '"/>';
+    out += txt(sx(11) + 8, sy(93) + 4, '93', C.accent, FS.value, false, 'font-weight="700"');
+    out += txt(sx(11) + 8, sy(95.1) + 1, '95.1', C.accent2, FS.value, false, 'font-weight="700"');
+    return svg(W, H, out);
   }
+
+  /* ============ 3. ISO 25012 — radar ============ */
+  function iso() {
+    var W = 420, H = 312, cx = 210, cy = 172, R = 96;
+    var dims = ['Accuracy', 'Completeness', 'Consistency', 'Credibility', 'Currentness', 'Compliance'];
+    var before = [62, 58, 55, 60, 52, 64], after = [88, 90, 86, 92, 85, 91];
+    function pt(i, v) {
+      var a = -Math.PI / 2 + i * Math.PI / 3;
+      return [r2(cx + Math.cos(a) * R * v / 100), r2(cy + Math.sin(a) * R * v / 100)];
+    }
+    function poly(vals, stroke, fillOp) {
+      var p = vals.map(function (v, i) { return pt(i, v).join(','); }).join(' ');
+      return '<polygon points="' + p + '" fill="' + stroke + '" fill-opacity="' + fillOp + '" stroke="' + stroke + '" stroke-width="2"/>';
+    }
+    var out = legend([['Before', C.silver], ['After', C.accent]], 42, 16);
+    [25, 50, 75, 100].forEach(function (g) {
+      out += '<polygon points="' + dims.map(function (_, i) { return pt(i, g).join(','); }).join(' ') +
+          '" fill="none" stroke="' + C.grid + '" stroke-width="1"/>';
+    });
+    dims.forEach(function (d, i) {
+      var e = pt(i, 100);
+      out += line(cx, cy, e[0], e[1], C.grid, 1);
+      var lp = pt(i, 121), anchor = 'middle';
+      if (lp[0] < cx - 12) anchor = 'end'; else if (lp[0] > cx + 12) anchor = 'start';
+      out += txt(lp[0], lp[1] + 4, d, C.dim, 10.5, anchor);
+    });
+    out += poly(before, C.silver, 0.13) + poly(after, C.accent, 0.16);
+    return svg(W, H, out);
+  }
+
+  /* ============ 4. Blend — doughnut + value legend ============ */
+  function blend() {
+    var W = 420, H = 236, cx = 118, cy = 124, r1 = 46, r2o = 76;
+    var parts = [['Scrap A', 38, C.accent], ['Scrap B', 27, C.accent2], ['Alloy X', 19, C.gold], ['Flux', 16, C.silver]];
+    function arc(a0, a1, color) {
+      var lg = (a1 - a0) > Math.PI ? 1 : 0;
+      function p(r, a) { return r2(cx + r * Math.cos(a)) + ' ' + r2(cy + r * Math.sin(a)); }
+      return '<path d="M ' + p(r2o, a0) + ' A ' + r2o + ' ' + r2o + ' 0 ' + lg + ' 1 ' + p(r2o, a1) +
+          ' L ' + p(r1, a1) + ' A ' + r1 + ' ' + r1 + ' 0 ' + lg + ' 0 ' + p(r1, a0) +
+          ' Z" fill="' + color + '" stroke="' + C.surface + '" stroke-width="2"/>';
+    }
+    var out = '', a = -Math.PI / 2;
+    parts.forEach(function (s) {
+      var a1 = a + s[1] / 100 * 2 * Math.PI;
+      out += arc(a, a1, s[2]); a = a1;
+    });
+    out += txt(cx, cy - 2, '99.2%', C.text, 19, 'middle', 'font-weight="700"');
+    out += txt(cx, cy + 16, 'quality', C.faint, 10, 'middle');
+    var ly = 62;
+    parts.forEach(function (s) {
+      out += '<circle cx="232" cy="' + (ly - 4) + '" r="4.5" fill="' + s[2] + '"/>';
+      out += txt(243, ly, s[0], C.dim, FS.legend + 1);
+      out += txt(382, ly, s[1] + '%', C.text, FS.value + 0.5, 'end', 'font-weight="700"');
+      ly += 31;
+    });
+    return svg(W, H, out);
+  }
+
+  /* ============ 5. Cost × quality frontier ============ */
+  function frontier() {
+    var W = 420, H = 250, L = 42, R = 14, T = 34, B = 34;
+    var sx = scale(0.2, 1.0, L, W - R), sy = scale(92, 100, H - B, T);
+    var feas = [[0.28, 93.2], [0.33, 94.0], [0.38, 93.6], [0.45, 95.0], [0.52, 94.4],
+      [0.60, 95.8], [0.68, 96.4], [0.78, 96.9], [0.88, 97.3], [0.95, 97.6]];
+    var pareto = [[0.28, 93.6], [0.40, 95.2], [0.55, 97.4], [0.75, 98.3], [0.95, 98.9]];
+    var opt = [0.55, 97.4];
+    var out = legend([['Pareto', C.accent], ['Target', C.accent2], ['Feasible', C.silver]], L, 16);
+    out += yAxis([92, 94, 96, 98, 100], sy, L, W - R);
+    [0.2, 0.4, 0.6, 0.8, 1.0].forEach(function (t) {
+      out += txt(sx(t), H - B + 16, t.toFixed(1), C.faint, FS.tick, 'middle');
+    });
+    out += txt((L + W - R) / 2, H - 4, 'relative material cost', C.faint, 10, 'middle');
+    out += line(L, sy(97), W - R, sy(97), C.accent2, 1.4, 'stroke-dasharray="5 5" opacity="0.9"');
+    feas.forEach(function (p) {
+      out += '<circle cx="' + sx(p[0]) + '" cy="' + sy(p[1]) + '" r="4.5" fill="' + C.silver + '" opacity="0.55"/>';
+    });
+    out += '<path d="' + pareto.map(function (p, i) { return (i ? 'L' : 'M') + sx(p[0]) + ' ' + sy(p[1]); }).join(' ') +
+        '" fill="none" stroke="' + C.accent + '" stroke-width="2.6" stroke-linecap="round"/>';
+    var ox = sx(opt[0]), oy = sy(opt[1]);
+    out += '<path d="M ' + ox + ' ' + (oy - 8) + ' L ' + (ox + 8) + ' ' + oy + ' L ' + ox + ' ' + (oy + 8) +
+        ' L ' + (ox - 8) + ' ' + oy + ' Z" fill="' + C.accent + '"/>';
+    out += txt(ox + 13, oy - 8, 'optimum', C.accent, FS.value, false, 'font-weight="700"');
+    return svg(W, H, out);
+  }
+
+  /* ============ 6. Scrap classes — horizontal bars ============ */
+  function scrap() {
+    var W = 420, H = 222, L = 86, R = 48, T = 16, B = 28;
+    var rows = [['Class A', 34, C.accent], ['Class B', 26, C.accent2], ['Class C', 18, C.gold],
+      ['Class D', 14, C.bronze], ['Class E', 8, C.silver]];
+    var sx = scale(0, 40, L, W - R);
+    var out = '';
+    [0, 10, 20, 30, 40].forEach(function (t) {
+      out += line(sx(t), T, sx(t), H - B, C.grid, 1, 'opacity="0.85"');
+      out += txt(sx(t), H - B + 15, t, C.faint, FS.tick, 'middle');
+    });
+    var bh = 22, gap = (H - T - B - rows.length * bh) / (rows.length - 1);
+    rows.forEach(function (rrow, i) {
+      var y = r2(T + i * (bh + gap));
+      out += txt(L - 9, y + bh / 2 + 4, rrow[0], C.dim, FS.label, 'end');
+      out += '<rect x="' + L + '" y="' + y + '" width="' + r2(sx(rrow[1]) - L) + '" height="' + bh + '" rx="4" fill="' + rrow[2] + '"/>';
+      out += txt(sx(rrow[1]) + 8, y + bh / 2 + 4, rrow[1] + '%', C.text, FS.value, false, 'font-weight="700"');
+    });
+    out += txt((L + W - R) / 2, H - 2, 'share %', C.faint, 10, 'middle');
+    return svg(W, H, out);
+  }
+
+  /* ============ 7. Predicted vs actual — scatter ============ */
+  function pred() {
+    var W = 420, H = 250, L = 42, R = 14, T = 22, B = 34;
+    var sx = scale(70, 100, L, W - R), sy = scale(70, 100, H - B, T);
+    var pts = [[72, 73], [75, 74.4], [78, 78.6], [81, 80.2], [84, 84.9], [86, 85.6],
+      [88, 88.8], [90, 89.4], [92, 92.7], [94, 93.5], [96, 96.5], [98, 97.8]];
+    var out = yAxis([70, 80, 90, 100], sy, L, W - R);
+    [70, 80, 90, 100].forEach(function (t) {
+      out += txt(sx(t), H - B + 16, t, C.faint, FS.tick, 'middle');
+    });
+    out += txt((L + W - R) / 2, H - 4, 'actual', C.faint, 10, 'middle');
+    out += txt(14, (T + H - B) / 2, 'pred.', C.faint, 10, 'middle', 'transform="rotate(-90 14 ' + ((T + H - B) / 2) + ')"');
+    out += line(sx(70), sy(70), sx(100), sy(100), C.faint, 1.4, 'stroke-dasharray="5 5" opacity="0.8"');
+    pts.forEach(function (p) {
+      out += '<circle cx="' + sx(p[0]) + '" cy="' + sy(p[1]) + '" r="4.5" fill="' + C.accent2 + '" opacity="0.9"/>';
+    });
+    out += '<rect x="' + (W - 96) + '" y="' + (T + 4) + '" width="82" height="24" rx="6" fill="none" stroke="' + C.grid2 + '"/>';
+    out += txt(W - 55, T + 20, 'R² = 0.97', C.text, FS.value, 'middle', 'font-weight="700"');
+    return svg(W, H, out);
+  }
+
+  /* ============ render ============ */
+  var builders = {
+    'chart-ingestion': ingestion,
+    'chart-kpitrend': kpitrend,
+    'chart-iso': iso,
+    'chart-blend': blend,
+    'chart-frontier': frontier,
+    'chart-scrap': scrap,
+    'chart-pred': pred
+  };
 
   function renderAll() {
-    if (typeof Chart === 'undefined') return;
-    Chart.defaults.font.family = MONO;
-    Chart.defaults.font.size = 12;
-    mob = (window.innerWidth || 1024) <= 560;
-    instances.forEach(c => { try { c.destroy(); } catch (e) {} });
-    instances = [];
-    const p = P();
-    try {
-      ingestion(p); kpiTrend(p); isoRadar(p); blend(p); frontier(p); scrapDist(p); predActual(p);
-    } catch (e) { console.warn('charts:', e); }
+    for (var id in builders) {
+      var el = document.getElementById(id);
+      if (el) el.innerHTML = builders[id]();
+    }
   }
 
-  window.Charts = { renderAll };
+  window.Charts = { renderAll: renderAll, builders: builders };
 })();
