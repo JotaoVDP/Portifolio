@@ -6,60 +6,82 @@
     get(k, d) { try { return localStorage.getItem(k) || d; } catch (e) { return d; } },
     set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   };
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- i18n ---------- */
-  const SUPPORTED = ['pt', 'en', 'es', 'fi', 'it', 'fr'];
+  const SUPPORTED = ['en', 'pt', 'es', 'fr', 'fi'];
   let lang = store.get('lang', '');
   if (!SUPPORTED.includes(lang)) {
-    const nav = (navigator.language || 'pt').slice(0, 2).toLowerCase();
-    lang = SUPPORTED.includes(nav) ? nav : 'pt';
+    const nav = (navigator.language || 'en').slice(0, 2).toLowerCase();
+    lang = SUPPORTED.includes(nav) ? nav : 'en';
+  }
+
+  function t(k) {
+    const dict = window.I18N[lang] || window.I18N.en;
+    return dict[k] != null ? dict[k] : (window.I18N.en[k] || '');
   }
 
   function applyLang(l) {
-    const dict = window.I18N[l] || window.I18N.en;
+    lang = l;
     document.documentElement.lang = l === 'pt' ? 'pt-BR' : l;
     document.querySelectorAll('[data-i18n]').forEach(el => {
-      const k = el.getAttribute('data-i18n');
-      if (dict[k] != null) el.textContent = dict[k];
+      const v = t(el.getAttribute('data-i18n'));
+      if (v) el.textContent = v;
     });
     document.querySelectorAll('[data-i18n-aria]').forEach(el => {
-      const k = el.getAttribute('data-i18n-aria');
-      if (dict[k] != null) el.setAttribute('aria-label', dict[k]);
+      const v = t(el.getAttribute('data-i18n-aria'));
+      if (v) el.setAttribute('aria-label', v);
     });
     const md = document.getElementById('modal');
     if (md && !md.hidden && md.dataset.tk) {
-      const mt = document.getElementById('modalTitle'); const mb = document.getElementById('modalBody');
-      if (mt) mt.textContent = dict[md.dataset.tk] || '';
-      if (mb) mb.textContent = dict[md.dataset.bk] || '';
+      document.getElementById('modalTitle').textContent = t(md.dataset.tk);
+      document.getElementById('modalBody').textContent = t(md.dataset.bk);
     }
-    if (dict.docTitle) {
-      const name = document.getElementById('brandName');
-      const who = name ? name.textContent.trim() : '';
-      document.title = (who ? who + ' · ' : '') + dict.docTitle;
-    }
-    document.querySelectorAll('.flag-btn').forEach(b =>
-        b.classList.toggle('active', b.dataset.lang === l));
-    lang = l; store.set('lang', l);
+    document.querySelectorAll('[data-count][data-decimals]').forEach(el => {
+      el.textContent = fmtNum(parseFloat(el.dataset.count), parseInt(el.dataset.decimals, 10));
+    });
+    document.title = 'João Vitor Dellaqua Pacheco · ' + t('docTitle');
+    document.querySelectorAll('.lang-btn').forEach(b => {
+      const on = b.dataset.lang === l;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    store.set('lang', l);
   }
 
   /* ---------- theme ---------- */
-  function applyTheme(t) {
-    document.documentElement.setAttribute('data-theme', t);
-    store.set('theme', t);
-    /* charts are SVG driven by CSS variables — they adapt to the theme live */
+  function applyTheme(th) {
+    document.documentElement.setAttribute('data-theme', th);
+    store.set('theme', th);
+  }
+
+  /* ---------- metric count-up ---------- */
+  function fmtNum(v, dec) {
+    return v.toLocaleString(document.documentElement.lang, { minimumFractionDigits: dec, maximumFractionDigits: dec });
+  }
+  function countUp(el) {
+    const end = parseFloat(el.dataset.count);
+    const dec = parseInt(el.dataset.decimals || '0', 10);
+    if (reduceMotion || isNaN(end)) return;
+    const dur = 1300, t0 = performance.now();
+    const fmt = v => fmtNum(v, dec);
+    function step(now) {
+      const p = Math.min(1, (now - t0) / dur);
+      const e = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(end * e);
+      if (p < 1) requestAnimationFrame(step); else el.textContent = fmt(end);
+    }
+    requestAnimationFrame(step);
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    /* theme init (default dark) */
-    let theme = store.get('theme', 'dark');
-    document.documentElement.setAttribute('data-theme', theme);
+    /* theme: set before paint by the inline script in <head> */
+    if (!document.documentElement.getAttribute('data-theme')) applyTheme('dark');
 
-    /* language buttons */
-    document.querySelectorAll('.flag-btn').forEach(btn => {
+    document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', () => applyLang(btn.dataset.lang));
     });
 
-    /* theme toggle */
     const tBtn = document.getElementById('themeBtn');
     if (tBtn) tBtn.addEventListener('click', () => {
       const cur = document.documentElement.getAttribute('data-theme');
@@ -70,8 +92,9 @@
     const menuBtn = document.getElementById('menuBtn');
     const links = document.getElementById('navLinks');
     if (menuBtn && links) {
-      menuBtn.addEventListener('click', () => links.classList.toggle('open'));
-      links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+      const setOpen = open => { links.classList.toggle('open', open); menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); };
+      menuBtn.addEventListener('click', () => setOpen(!links.classList.contains('open')));
+      links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
     }
 
     /* detail modal (interactive diagrams) */
@@ -79,10 +102,8 @@
     let lastTrigger = null;
     function openModal(tk, bk) {
       if (!modal) return;
-      const dict = window.I18N[lang] || window.I18N.en;
-      const t = document.getElementById('modalTitle'); const b = document.getElementById('modalBody');
-      if (t) t.textContent = dict[tk] || '';
-      if (b) b.textContent = dict[bk] || '';
+      document.getElementById('modalTitle').textContent = t(tk);
+      document.getElementById('modalBody').textContent = t(bk);
       modal.dataset.tk = tk; modal.dataset.bk = bk;
       modal.hidden = false;
       requestAnimationFrame(() => modal.classList.add('open'));
@@ -107,13 +128,39 @@
       }
     });
 
-    /* header shadow on scroll */
+    /* copy email */
+    const copyBtn = document.getElementById('copyEmail');
+    const toast = document.getElementById('copyToast');
+    if (copyBtn) copyBtn.addEventListener('click', () => {
+      const email = 'joaovitordellpa@gmail.com';
+      const done = () => { if (toast) { toast.textContent = t('copied'); setTimeout(() => { toast.textContent = ''; }, 2200); } };
+      if (navigator.clipboard) navigator.clipboard.writeText(email).then(done, () => {});
+    });
+
+    /* year */
+    const y = document.getElementById('year');
+    if (y) y.textContent = new Date().getFullYear();
+
+    /* header border + active nav link */
     const header = document.querySelector('header');
-    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 8);
+    const navAnchors = Array.from(document.querySelectorAll('.nav-links a'));
+    const sections = navAnchors.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const onScroll = () => {
+      header.classList.toggle('scrolled', window.scrollY > 8);
+      const pos = window.scrollY + 120;
+      let current = null;
+      sections.forEach(s => { if (s.offsetTop <= pos) current = s.id; });
+      navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+    };
     window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
-    /* render charts then apply language (so chart-internal text—none translated—stays) */
-    if (window.Charts) window.Charts.renderAll();
+    if (window.Charts) {
+      /* diagrams render lazily: translate their aria-labels as they appear */
+      window.Charts.onRender = el => el.querySelectorAll('[data-i18n-aria]').forEach(n => {
+        const v = t(n.getAttribute('data-i18n-aria')); if (v) n.setAttribute('aria-label', v);
+      });
+      window.Charts.renderAll();
+    }
     applyLang(lang);
 
     /* reveal on scroll */
@@ -121,5 +168,12 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    /* count-up once the hero card is visible */
+    const counters = document.querySelectorAll('[data-count]');
+    const cio = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { countUp(e.target); cio.unobserve(e.target); } });
+    }, { threshold: 0.4 });
+    counters.forEach(el => cio.observe(el));
   });
 })();
