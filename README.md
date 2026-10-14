@@ -1,7 +1,7 @@
 # Portfólio · Data Engineer
 
-Site estático, multilíngue (PT-BR · EN · ES · FI), com tema escuro/claro,
-pensado para publicação **gratuita no GitHub Pages**. Sem backend, sem build:
+Site estático, multilíngue (EN · PT-BR · ES · FR · FI), com tema escuro/claro,
+publicado **gratuitamente no GitHub Pages**. Sem backend, sem build:
 é só HTML, CSS e JS puro.
 
 ```
@@ -10,44 +10,60 @@ pensado para publicação **gratuita no GitHub Pages**. Sem backend, sem build:
 ├── README.md
 └── assets/
     ├── css/styles.css      # design system (tokens, dark/light, layout)
+    ├── img/                # profile.jpg (foto) e scrap-truck.webp (opcional)
     └── js/
-        ├── i18n.js         # TODOS os textos, nos 4 idiomas
-        ├── charts.js       # gráficos SVG (mockups ilustrativos)
-        └── main.js         # troca de idioma, tema, navegação, animações
+        ├── i18n.js         # TODOS os textos, nos 3 idiomas
+        ├── bg.js           # fundo animado em grafo (canvas)
+        ├── charts.js       # gráficos e diagramas SVG (sem biblioteca)
+        └── main.js         # idioma, tema, navegação, animações
 ```
 
-## 1. Preencher os placeholders
+## 1. Fonte da verdade: o CV
 
-Antes de publicar, troque 3 coisas (marcadas com `<!-- PLACEHOLDER -->` no HTML):
+Os números e fatos do site (pipelines, score de qualidade, modelos, agentes,
+certificações) devem bater com o currículo. Ao atualizar o CV, revise `i18n.js`.
 
-| O quê | Onde (`index.html`) |
-|-------|---------------------|
-| Nome no topo (marca) | `<span id="brandName">Seu Nome</span>` |
-| Nome no título do hero | `<h1>Seu <span class="accent">Nome</span></h1>` |
-| E-mail de contato | `<a id="contactEmail" href="mailto:...">` — troque **o `href` e o texto visível** |
+## Imagens
 
-O título da aba do navegador é montado automaticamente como
-`Seu Nome · Portfólio · Data Engineer` a partir do `#brandName`.
+- **Foto:** salve em `assets/img/profile.jpg` (quadrada, ≥ 400×400). Sem o
+  arquivo, o site mostra as iniciais "JV" no lugar.
+- **Caminhão de sucata (opcional):** salve uma foto/render em
+  `assets/img/scrap-truck.webp` (proporção 16:10, ex. 1600×1000). Ela aparece
+  por baixo do HUD da câmera (caixas de detecção, alertas). Sem o arquivo, é
+  usada a ilustração SVG. Prompt sugerido para gerar a imagem:
 
-## 2. Editar os textos (4 idiomas)
+  > Top-down overhead security-camera view of an open-bed dump truck parked
+  > horizontally at a steel plant scrap yard gate, cab on the left side of the
+  > frame, the open bed filling the center 60% of the image, loaded with mixed
+  > ferrous scrap metal: rusty steel plates, rebar, shredded steel, cast iron
+  > chunks. Dark asphalt with faded yellow lane markings, slight wide-angle CCTV
+  > look, overcast daylight, muted industrial colors, realistic photo, no text,
+  > no people, no logos, 16:10.
+
+## 2. Editar os textos (5 idiomas)
 
 Todo o conteúdo textual fica em `assets/js/i18n.js`, num único objeto com as
-chaves repetidas em `pt`, `en`, `es` e `fi`. Para ajustar uma frase, edite a
-chave correspondente nos quatro idiomas. As tags no HTML (`data-i18n="..."`)
-apontam para essas chaves — não precisa mexer no HTML para trocar texto.
+chaves repetidas em `en`, `pt`, `es`, `fr` e `fi`. O inglês é o idioma padrão (usado
+quando o navegador não está em PT/ES) e o fallback de qualquer chave faltando.
+As tags no HTML (`data-i18n="..."`) apontam para essas chaves.
 
-> O cargo aparece como **"Data Engineer"** em todos os idiomas (mantido em inglês
-> de propósito). Bronze/Silver/Gold, nomes de dimensões ISO/IEC 25012 e rótulos
-> técnicos dos gráficos também ficam neutros em inglês.
+Nomes de tecnologias (chips), rótulos internos dos diagramas e dos gráficos
+ficam em inglês de propósito.
 
-## 3. Ajustar os gráficos (opcional)
+## 3. Gráficos
 
-Os números em `assets/js/charts.js` são **mockups ilustrativos** (há um aviso
-visível no site deixando isso claro). Os gráficos são SVG desenhados à mão, sem
-biblioteca externa, e leem as cores do tema ativo via variáveis CSS — então se
-adaptam sozinhos ao alternar claro/escuro. Edite os arrays de dados em cada
-função (`ingestion`, `kpiTrend`, `isoRadar`, `blend`, `frontier`, `scrapDist`,
-`predActual`) se quiser outros valores.
+`assets/js/charts.js` desenha os gráficos em SVG e lê as cores do tema via
+variáveis CSS. Regra: **números de destaque são reais** (vindos do CV); o que
+for ilustrativo precisa dizer isso na legenda (`figcaption`).
+
+Diagramas (nós clicáveis abrem o modal; em telas estreitas viram layout vertical):
+`lakehouse`, `system`, `observability`, `model`, `truck`.
+
+- `dq` — score de qualidade ~70% → 94,78% (pontas reais, caminho ilustrativo)
+- `iso` — dimensões ISO/IEC 25012 em "dumbbell" (ilustrativo, médias batem com o score)
+- `accept` — ~70% de aceitação dos agentes (real) e motivos de rejeição (ilustrativo)
+- `anomaly` — série sintética de sensor com anomalias (ilustrativo)
+- `scrap` — waffle com a distribuição de classes de sucata (ilustrativo)
 
 ## 4. Cores e identidade visual
 
@@ -82,7 +98,8 @@ sistema.
 ## Acessibilidade e detalhes
 
 - Idioma inicial: usa o último escolhido (salvo no navegador), senão o idioma do
-  navegador, senão Português.
-- Tema inicial: escuro por padrão; o botão alterna e a escolha é lembrada.
+  navegador, senão Inglês.
+- Tema inicial: segue o sistema (`prefers-color-scheme`); o botão alterna e a
+  escolha é lembrada.
 - Respeita `prefers-reduced-motion` (desliga animações de entrada).
 - `<html lang>` é atualizado conforme o idioma selecionado.
