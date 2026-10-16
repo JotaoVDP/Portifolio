@@ -294,7 +294,7 @@
   var OBS = [
     { n: '1', t: 'User feedback', s: '50+ entries · coded reasons', v: '~70%', l: 'accepted', ic: 'user', col: C.ok, m: ['obsFeedbackT', 'obsFeedbackB'] },
     { n: '2', t: 'Agent evaluation', s: 'evaluations on Amazon Bedrock', v: '', l: 'answer quality', ic: 'spark', col: C.accent, m: ['obsEvalT', 'obsEvalB'] },
-    { n: '3', t: 'CloudWatch', s: 'dashboards · agent health', v: '28', l: 'widgets', ic: 'gauge', col: C.accent2, m: ['obsCwT', 'obsCwB'] }
+    { n: '3', t: 'CloudWatch', s: 'dashboards · agent health', v: '', l: 'in production', ic: 'gauge', col: C.accent2, m: ['obsCwT', 'obsCwB'] }
   ];
   function obsRow(p, o, x, y, w, h) {
     var out = '<g class="dn dgm-node"' + modalAttrs(o.m) + '>';
