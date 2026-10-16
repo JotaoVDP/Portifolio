@@ -99,7 +99,6 @@ sistema.
 
 - Idioma inicial: usa o último escolhido (salvo no navegador), senão o idioma do
   navegador, senão Inglês.
-- Tema inicial: segue o sistema (`prefers-color-scheme`); o botão alterna e a
-  escolha é lembrada.
+- Tema inicial: escuro; o botão alterna para o claro e a escolha é lembrada.
 - Respeita `prefers-reduced-motion` (desliga animações de entrada).
 - `<html lang>` é atualizado conforme o idioma selecionado.

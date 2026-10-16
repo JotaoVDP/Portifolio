@@ -244,7 +244,7 @@ header.scrolled { border-bottom-color: var(--border); }
 .tl-points li, .outcomes li { position: relative; padding-left: 20px; color: var(--text-dim); font-size: 15.5px; line-height: 1.6; }
 .tl-points li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 7px; height: 7px; border-radius: 2px; background: var(--accent); transform: rotate(45deg); }
 .tl-sub { font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--text-faint); margin: 24px 0 12px; }
-.eng-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.eng-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .eng { display: flex; flex-direction: column; gap: 4px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 11px; padding: 14px; transition: border-color .2s ease, transform .2s ease; }
 .eng:hover { border-color: var(--accent); transform: translateY(-2px); }
 .eng-t { font-weight: 600; font-size: 14.5px; line-height: 1.35; color: var(--text); }
@@ -340,7 +340,7 @@ details.case-more summary:hover { color: var(--text); }
 /* more work */
 .more { margin-top: 56px; }
 .more-title { font-size: 24px; margin-bottom: 18px; }
-.more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.more-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
 .more-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow-sm); transition: transform .25s ease, border-color .25s ease; }
 .more-card:hover { transform: translateY(-3px); border-color: var(--border-2); }
 .more-ic { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 11px; color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border)); margin-bottom: 14px; }
@@ -379,6 +379,9 @@ details.case-more summary:hover { color: var(--text); }
 .badge-ok { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 40%, transparent); background: color-mix(in srgb, var(--ok) 10%, transparent); }
 .badge-progress { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 40%, transparent); background: color-mix(in srgb, var(--warn) 10%, transparent); }
 [data-theme="light"] .badge-progress { color: #9a6700; }
+.badge-prep { color: var(--accent-2); border-style: dashed; border-color: color-mix(in srgb, var(--accent-2) 60%, transparent); background: transparent; }
+.cert-prep .cert-ic { color: var(--accent-2); background: color-mix(in srgb, var(--accent-2) 10%, transparent); border-style: dashed; border-color: color-mix(in srgb, var(--accent-2) 45%, var(--border)); }
+.edu-status { margin-top: 12px; font-size: 13.5px; line-height: 1.5; color: var(--text); padding-left: 12px; border-left: 2px solid var(--warn); }
 
 /* ---------- Modal ---------- */
 .modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
